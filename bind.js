@@ -37,69 +37,95 @@ data.me = { // fails
 }
 
 */
-var Bind = (function () {
+var Bind = (function (global) {
 "use strict"; // damn jshint & sublime
 
-var $ = document.querySelectorAll.bind(document),
+var $ = document ? document.querySelectorAll.bind(document) : function () {},
     forEach = [].forEach;
 
 function extend(target, object, mapping, _path) {
   if (!_path) { _path = []; }
+
   Object.getOwnPropertyNames(object).forEach(function (key) {
     var value = object[key];
     var path = [].slice.call(_path);
     path.push(key);
 
     var elements;
+    var callback;
+    if (typeof mapping[path.join('.')] === 'function') {
+      callback = mapping[path.join('.')];
+    } else {
+      callback = function (value) {
+        if (callback.elements) {
+          forEach.call(callback.elements, function (element) {
+            element.innerHTML = value;
+          });
+        }
+      };
+      callback.elements = $(mapping[path.join('.')] || '☺');
+    }
+
+    Object.defineProperty(target, key, {
+      configurable: true,
+      set: function (v) {
+        if (typeof v === "object" && v !== null && !Array.isArray(v)) {
+          value = extend(target[key] || {}, v, mapping, path);
+        } else {
+          value = v;
+        }
+
+        if (callback) {
+          callback(value);
+        }
+      },
+      get: function () {
+        return value;
+      }
+    });
 
     if (typeof value === "object" && value !== null && !Array.isArray(value)) {
       target[key] = extend(target[key] || {}, value, mapping, path);
     } else {
-      var callback;
-      if (typeof mapping[path.join('.')] === 'function') {
-        callback = mapping[path.join('.')];
-      } else {
-        callback = function (value) {
-          if (callback.elements) {
-            forEach.call(callback.elements, function (element) {
-              element.innerHTML = value;
-            });
-          }
-        };
-        callback.elements = $(mapping[path.join('.')] || '☺');
-      }
-
-      Object.defineProperty(target, key, {
-        set: function (v) {
-          if (typeof v === "object" && v !== null && !Array.isArray(v)) {
-            target[key] = extend(target[key] || {}, v, mapping, path);
-          } else {
-            value = v;
-          }
-
-          if (callback) {
-            callback(value);
-          }
-        },
-        get: function () {
-          return value;
-        }
-      });
-
       target[key] = value;
     }
   });
   return target;
 }
 
-var Bind = function (obj, mapping) {
-  if (!this || this === window) {
+function Bind(obj, mapping) {
+  if (!this || this === global) {
     return new Bind(obj, mapping);
   }
+  this.__mapping = mapping;
   extend(this, obj, mapping);
   return this;
 };
 
+Bind.prototype.__mapping = {};
+
+Bind.prototype.__export = function () {
+  function extend(target, object) {
+    Object.getOwnPropertyNames(object).forEach(function (key) {
+      if (Bind.prototype[key]) return;
+      var value = object[key];
+      if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+        target[key] = extend(target[key] || {}, value);
+      } else if (!Bind.prototype[value]) {
+        target[key] = value;
+      }
+    });
+    return target;
+  }
+
+  return extend({}, this);
+};
+
 return Bind;
 
-})();
+})(this);
+
+if (typeof exports !== 'undefined') {
+  module.exports = Bind;
+}
+
