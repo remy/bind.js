@@ -38,4 +38,6 @@ setters/gettings, bind, qSA, getOwnPropertyNames, forEach - basically evergreen 
 
 ## Restrictions
 
-Generally
+The bound object can't bind a new property path (certainly change existing property values), but new properties, like `cats` (in the example above) wouldn't have the mapping to know what to trigger (I do want to explore whether I can add an update method to re-read the mapping).
+
+Also arrays are currently not boundable - I'm hoping to fix that either by adding a watcher (yes, polling) or by hijacking the `push` method.
