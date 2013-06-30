@@ -1,0 +1,20 @@
+{
+  "name": "bind",
+  "version": "0.0.0",
+  "description": "Simple data binding for callbacks & HTML (also node.js compatible).",
+  "main": "bind.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/remy/bind.git"
+  },
+  "author": "",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "59b398e1007d41a41d8fb73a659b9fc4ba4fa20a"
+}
