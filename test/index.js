@@ -1,4 +1,4 @@
-var bind = require('../../bind');
+var bind = require('../bind');
 var assert = require('assert');
 var sinon = require('sinon');
 
@@ -104,10 +104,9 @@ describe('Bind', function(){
     });
 
     it('array item is changed', function () {
-      console.log(cats['0'].name);
-      assert.ok(cats['0'].name.calledOnce);
+      assert.ok(callbacks.dizzy.calledOnce);
       data.cats[0].name = 'Jed';
-      assert.ok(cats['0'].name.calledTwice);
+      assert.ok(callbacks.dizzy.calledTwice);
     });
   });
 
