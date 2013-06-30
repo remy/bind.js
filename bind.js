@@ -41,17 +41,28 @@ var Bind = (function (global) {
 
   // this is a conditional because we're also supporting node environment
   var $ = global.document ? document.querySelectorAll.bind(document) : function () {},
-    forEach = [].forEach,
-    _push = [].push;
+    array = [],
+    forEach = array.forEach,
+    _push = array.push;
 
-var array = [];
-
-  function AugmentArray(callback) {
+  function AugmentedArray(callback) {
     this.__callback = callback;
+
+    'pop push reverse shift sort splice unshift'.split(' ').forEach(function (method) {
+      this[method] = function () {
+        var before = this.slice(0);
+        this.__dirty = true;
+        var ret = array[method].apply(this, arguments);
+        if (callback) callback.call(this, this.slice(0), before);
+        delete this.__dirty;
+        return ret;
+      };
+    }.bind(this));
+
     return this;
   }
 
-  AugmentArray.prototype = new Array();
+  AugmentedArray.prototype = [];
 
   function extend(target, object, settings, _path) {
     if (!_path) { _path = []; }
@@ -97,62 +108,63 @@ var array = [];
         callback.elements = $(settings.mapping[path.join('.')] || '☺');
       }
 
-      // don't die trying...
-      try {
+      // set up a setter and getter for this property.
+      // if the set value is another object, iterate over it, re-extending
+      // so it gets these setters and getters on the set object properties.
+      // when the setter is called, check if there's a callback, if so: fire.
+      var definition = {
+        // configurable to allow object properties to be later deleted
+        configurable: true,
+        enumerable: true,
+        set: function (v) {
+          var old = value !== v ? value : undefined;
+          var oldparent,
+              parentIsArray = target instanceof AugmentedArray || Array.isArray(target);
 
-        // set up a setter and getter for this property.
-        // if the set value is another object, iterate over it, re-extending
-        // so it gets these setters and getters on the set object properties.
-        // when the setter is called, check if there's a callback, if so: fire.
-        Object.defineProperty(target, key, {
-          // configurable to allow object properties to be later deleted
-          configurable: true,
-          enumerable: true,
-          set: function (v) {
-            var old = value !== v ? value : undefined;
-            var oldparent,
-                parentIsArray = target instanceof AugmentArray || Array.isArray(target);
+          // if the parent object is an array - then capture the old state too
+          if (parentIsArray) {
+            oldparent = target.slice(0);
+          }
 
-            // if the parent object is an array - then capture the old state too
-            if (parentIsArray) {
-              oldparent = target.slice(0);
-            }
+          // if the value we're setting is an object, enumerate the properties
+          // and apply new setter & getters, returning our bound object
+          if (settings.ready && typeof v === "object" && v !== null && !Array.isArray(v)) {
+            value = extend(target[key] || {}, v, settings, path);
+          // } else if (Array.isArray(value)) {
+            // value = extend(new AugmentedArray(callback), v, settings, path);
+          } else {
+            value = v;
+          }
 
-            // if the value we're setting is an object, enumerate the properties
-            // and apply new setter & getters, returning our bound object
-            if (settings.ready && typeof v === "object" && v !== null && !Array.isArray(v)) {
-              value = extend(target[key] || {}, v, settings, path);
-            // } else if (Array.isArray(value)) {
-              // value = extend(new AugmentArray(callback), v, settings, path);
-            } else {
-              value = v;
-            }
-
-            // only fire the callback immediately when the initial data binding
-            // is set up. If it's not, then defer until complete
-            if (settings.ready && callback) {
+          // only fire the callback immediately when the initial data binding
+          // is set up. If it's not, then defer until complete
+          if (settings.ready && callback) {
+            callback(value, old);
+          } else if (callback) {
+            settings.deferred.push(function (callback, value, old) {
               callback(value, old);
-            } else if (callback) {
+            }.bind(null, callback, value, old));
+          }
+
+          if (parentIsArray && !target.__dirty) {
+            // trigger a change on the parent array
+            if (settings.ready && target.__callback) {
+              target.__callback(target.slice(0), oldparent);
+            } else if (target.__callback) {
               settings.deferred.push(function (callback, value, old) {
                 callback(value, old);
-              }.bind(null, callback, value, old));
+              }.bind(null, target.__callback, target.slice(0), oldparent));
             }
-
-            if (!callback && parentIsArray) {
-              // trigger a change on the parent array
-              if (settings.ready && target.__callback) {
-                target.__callback(target, oldparent);
-              } else if (target.__callback) {
-                settings.deferred.push(function (callback, value, old) {
-                  callback(value, old);
-                }.bind(null, target.__callback, target, oldparent));
-              }
-            }
-          },
-          get: function () {
-            return value;
           }
-        });
+        },
+        get: function () {
+          return value;
+        }
+      };
+
+      // don't die trying...
+      try {
+        Object.defineProperty(target, key, definition);
       } catch (e) {
         // console.log(e.toString(), e.stack);
       }
@@ -164,8 +176,8 @@ var array = [];
       if (typeof value === "object" && value !== null && !Array.isArray(value)) {
         target[key] = extend(target[key] || {}, value, settings, path);
       } else if (Array.isArray(value)) {
-        target[key] = extend(new AugmentArray, value, settings, path);
-        target[key].__callback = callback;
+        target[key] = extend(new AugmentedArray(callback), value, settings, path);
+        // target[key].__callback = callback;
       } else {
         target[key] = value;
       }

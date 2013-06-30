@@ -29,12 +29,12 @@ var data = Bind({
   'me.location.country': function (country) {
     // console.log('country', country, (new Error).stack.replace(/^Error\n/, '\n'));
   },
-  'me.cats': function (cat) {
-    console.log('cat changed!', cat, (new Error).stack.replace(/^Error\n/, '\n'));
+  'me.cats': function (n, old) {
+    console.log('cat changed!', n, old); //, (new Error).stack.replace(/^Error\n/, '\n'));
     document.querySelector('#cats').innerHTML = '<li>' + data.me.cats.join('<li>');
   },
-  'me.cats.2': function (n, old) {
-    console.log('me.cats.2 changed to', n, 'from', old);
+  'me.cats.1': function (n, old) {
+    console.log('me.cats.1 changed to', n, 'from', old);
   }
 });
 
