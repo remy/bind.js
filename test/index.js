@@ -1,4 +1,4 @@
-var bind = require('../bind');
+var Bind = require('../bind');
 var assert = require('assert');
 var sinon = require('sinon');
 
@@ -21,7 +21,7 @@ describe('Bind', function(){
       city: noop()
     };
 
-    data = bind({
+    data = new Bind({
       name: 'remy',
       location: {
         city: 'Brighton',
@@ -91,22 +91,29 @@ describe('Bind', function(){
     });
   });
 
-  describe('callbacks fire on arrays', function () {
-    it('array.push', function () {
+  describe('arrays', function () {
+    it('should have called the callback on initialisation', function () {
+      assert.ok(callbacks.cats.calledOnce);
+    });
+
+    it('should callback on push', function () {
       var length = data.cats.length;
+
+      assert.ok(callbacks.cats.calledOnce);
 
       data.cats.push({
         'name': 'Jed'
       });
 
-      assert.ok(data.cats.length === length + 1);
+      assert.ok('length correct', data.cats.length === length + 1);
       assert.ok(callbacks.cats.calledTwice);
     });
 
-    it('array item is changed', function () {
+    it('should callback on individual item change', function () {
       assert.ok(callbacks.dizzy.calledOnce);
       data.cats[0].name = 'Jed';
       assert.ok(callbacks.dizzy.calledTwice);
+      assert.ok(data.cats[0].name === 'Jed');
     });
   });
 
