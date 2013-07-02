@@ -2,6 +2,8 @@
 
 Simple data binding for callbacks & HTML (also node.js compatible).
 
+![Test status](https://api.travis-ci.org/remy/bind.png?branch=master)
+
 ## Requires
 
 setters/gettings, bind, qSA, getOwnPropertyNames, forEach - basically evergreen browser
