@@ -31,7 +31,7 @@ var data = Bind({
   },
   'me.cats': function (n, old) {
     console.log('cat changed!', n, old); //, (new Error).stack.replace(/^Error\n/, '\n'));
-    document.querySelector('#cats').innerHTML = '<li>' + data.me.cats.join('<li>');
+    document.querySelector('#cats').innerHTML = '<li>' + n.join('<li>');
   },
   'me.cats.1': function (n, old) {
     console.log('me.cats.1 changed to', n, 'from', old);
