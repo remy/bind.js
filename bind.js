@@ -138,24 +138,32 @@ var Bind = (function (global) {
 
           // only fire the callback immediately when the initial data binding
           // is set up. If it's not, then defer until complete
-          if (settings.ready && callback) {
+          var cbwrapper = function (callback, value, old, target, parentIsArray) {
             callback(value, old);
+            // debugger;
+            if (parentIsArray && !target.__dirty) {
+              target.__callback(target.slice(0), oldparent);
+            }
+          }.bind(null, callback, value, old, target, parentIsArray);
+
+
+          if (settings.ready && callback) {
+            cbwrapper.call();
           } else if (callback) {
-            settings.deferred.push(function (callback, value, old) {
-              callback(value, old);
-            }.bind(null, callback, value, old));
+            settings.deferred.push(cbwrapper);
           }
 
-          if (parentIsArray && !target.__dirty) {
-            // trigger a change on the parent array
-            if (settings.ready && target.__callback) {
-              target.__callback(target.slice(0), oldparent);
-            } else if (target.__callback) {
-              settings.deferred.push(function (callback, value, old) {
-                callback(value, old);
-              }.bind(null, target.__callback, target.slice(0), oldparent));
-            }
-          }
+          // if (false && parentIsArray && !target.__dirty) {
+          //   console.log('calling on setter');
+          //   // trigger a change on the parent array
+          //   if (settings.ready && target.__callback) {
+          //     target.__callback(target.slice(0), oldparent);
+          //   } else if (target.__callback) {
+          //     settings.deferred.push(function (callback, value, old) {
+          //       callback(value, old);
+          //     }.bind(null, target.__callback, target.slice(0), oldparent));
+          //   }
+          // }
         },
         get: function () {
           return value;
@@ -177,7 +185,6 @@ var Bind = (function (global) {
         target[key] = extend(target[key] || {}, value, settings, path);
       } else if (Array.isArray(value)) {
         target[key] = extend(new AugmentedArray(callback), value, settings, path);
-        // target[key].__callback = callback;
       } else {
         target[key] = value;
       }
@@ -205,11 +212,16 @@ var Bind = (function (global) {
 
     // if there's deferred callbacks, let's hit them now the binding is set up
     if (settings.deferred.length) {
-      setTimeout(function () {
-        settings.deferred.forEach(function (fn) {
-          fn();
-        });
-      }, 0);
+      // Note: this callback will fire right away, so the callbacks
+      // may not want to directly reference the returned object,
+      // but reference the passed in "new" value or `this` keyword
+      // This can be worked around by wrapping the following code
+      // in a setTimeout(fn, 0) - but this means any changes that are
+      // synchonous in the code that creates the bind object, will
+      // run *before* this callback loop runs. Basically: race.
+      settings.deferred.forEach(function (fn) {
+        fn.call(this);
+      }.bind(this));
     }
 
     return this;
