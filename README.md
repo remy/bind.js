@@ -38,6 +38,28 @@ setters/gettings, bind, qSA, getOwnPropertyNames, forEach - basically evergreen 
       score: 20
     };
 
+## Arrays
+
+I've added array support by creating an augmented array in place of your original array. It's pretty filthy, but works (TODO: only tested in Mocha, Node & Chrome - need to extend).
+
+Simple example:
+
+```
+var data = Bind({
+  cats: ['ninja', 'missy', 'dizzy']
+}, {
+  'cats': function (cats, old) {
+    console.log('cats changed!', cats, old);
+    document.querySelector('#cats').innerHTML = '<li>' + cats.join('<li>');
+  },
+  'cats.0': function (newCat, oldCat) {
+    console.log('The newest cat at the start of our family is ' + newCat);
+  }
+});
+
+data.cats.unshift('sam');
+```
+
 ## Restrictions
 
 ### Deleted properties

@@ -5,7 +5,19 @@
 <ul id="cats"></ul>
 
 <script src="../../bind.js"></script>
-<script>
+<script type="text/javascript">
+      var data = new Bind({
+        a: [1,2,3]
+      }, {
+        'a.0': function (n) {
+          console.log('changed', n);
+        }
+      });
+
+data.a[0] = 10;
+
+</script>
+<script type="foo">
 document.querySelector('input').onchange = function () {
   data.me.score = this.value;
 };

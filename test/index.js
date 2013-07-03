@@ -5,9 +5,14 @@ var sinon = require('sinon');
 
 describe('Bind', function(){
   var data,
-      callbacks = {};
+      callbacks = {},
+      spy;
 
   beforeEach(function(done){
+    spy = sinon.spy(function (n, o) {
+      return n;
+    });
+
     var noop = function () {
       return sinon.spy(function () {
         // console.log.apply(console, [].slice.apply(arguments));
@@ -92,6 +97,61 @@ describe('Bind', function(){
   });
 
   describe('arrays', function () {
+    it('should bind to simple arrays [1,2,3]', function (done) {
+      var data = new Bind([1,2,3], {
+        '0': sinon.spy(function (newval, oldval) {
+          assert.ok(newval === 1);
+        }),
+        '1': sinon.spy(function (n, o) {
+          assert.ok(n === 2);
+        })
+      });
+
+      assert.ok(data.length === 3);
+
+      setTimeout(done, 10);
+    });
+
+    it('should trigger change when array length changes', function (done) {
+      var callback = sinon.spy(function (array) {
+        var count = callback.callCount;
+        if (count === 1) {
+          assert.ok(array.length === 3);
+        } else if (count === 2) {
+          assert.ok(array.length === 2);
+        } else if (count === 3) {
+          assert.ok(array.length === 1);
+        }
+      });
+
+      // `data` - getting rather meta now...
+      var data = new Bind({
+        data: [1,2,3]
+      }, {
+        data: callback
+      });
+
+      data.data.shift();
+
+      data.data.pop();
+      done();
+    });
+
+    it('should trigger changes on individual item changes', function (done) {
+      var data = new Bind({
+        a: [1,2,3]
+      }, {
+        'a.0': spy
+      });
+
+      sinon.assert.callCount(spy, 1);
+      data.a[0] = 10;
+      sinon.assert.callCount(spy, 2);
+      assert.ok(data.a[0] === 10);
+
+      done();
+    });
+
     it('should have called the callback on initialisation', function () {
       assert.ok(callbacks.cats.calledOnce);
     });

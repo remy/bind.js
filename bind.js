@@ -141,7 +141,7 @@ var Bind = (function (global) {
           var cbwrapper = function (callback, value, old, target, parentIsArray) {
             callback(value, old);
             // debugger;
-            if (parentIsArray && !target.__dirty) {
+            if (parentIsArray && !target.__dirty && target.__callback) {
               target.__callback(target.slice(0), oldparent);
             }
           }.bind(null, callback, value, old, target, parentIsArray);
@@ -152,18 +152,6 @@ var Bind = (function (global) {
           } else if (callback) {
             settings.deferred.push(cbwrapper);
           }
-
-          // if (false && parentIsArray && !target.__dirty) {
-          //   console.log('calling on setter');
-          //   // trigger a change on the parent array
-          //   if (settings.ready && target.__callback) {
-          //     target.__callback(target.slice(0), oldparent);
-          //   } else if (target.__callback) {
-          //     settings.deferred.push(function (callback, value, old) {
-          //       callback(value, old);
-          //     }.bind(null, target.__callback, target.slice(0), oldparent));
-          //   }
-          // }
         },
         get: function () {
           return value;
