@@ -1,5 +1,5 @@
 {
-  "name": "bind",
+  "name": "bind.js",
   "version": "0.0.1",
   "description": "Simple data binding for callbacks & HTML (also node.js compatible).",
   "main": "bind.js",

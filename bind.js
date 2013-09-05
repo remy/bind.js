@@ -42,8 +42,7 @@ var Bind = (function (global) {
   // this is a conditional because we're also supporting node environment
   var $ = global.document ? document.querySelectorAll.bind(document) : function () {},
     array = [],
-    forEach = array.forEach,
-    _push = array.push;
+    forEach = array.forEach;
 
   function AugmentedArray(callback) {
     this.__callback = callback;
@@ -213,7 +212,7 @@ var Bind = (function (global) {
     }
 
     return this;
-  };
+  }
 
   // returns a vanilla object - without setters & getters
   Bind.prototype.__export = function () {
