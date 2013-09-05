@@ -1,3 +1,6 @@
+var Bind = require('../bind');
+var assert = require('assert');
+var sinon = require('sinon');
 /*globals describe:true, assert: true, beforeEach: true, Bind:true, sinon:true, it:true */
 describe('Bind', function(){
   var data,

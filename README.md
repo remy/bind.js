@@ -2,7 +2,7 @@
 
 Simple data binding for callbacks & HTML (also node.js compatible).
 
-![Test status](https://api.travis-ci.org/remy/bind.png?branch=master)
+[![Test status](https://api.travis-ci.org/remy/bind.png?branch=master)](https://travis-ci.org/remy/bind)
 
 ## Requires
 
