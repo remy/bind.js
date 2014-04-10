@@ -4,6 +4,11 @@ Simple data binding for callbacks & HTML (also node.js compatible).
 
 [![Test status](https://api.travis-ci.org/remy/bind.png?branch=master)](https://travis-ci.org/remy/bind)
 
+## Demos
+
+- [Hangman game](http://jsbin.com/oZOvIJ/5/edit?js,output) - more involved example of data binding
+- [Simple one to one binding](http://jsbin.com/xavej/1/edit?js,output) - time & modulus bound to simple elements
+
 ## Requires
 
 setters/gettings, bind, qSA, getOwnPropertyNames, forEach - basically evergreen browser
