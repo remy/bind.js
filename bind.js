@@ -97,6 +97,12 @@ var Bind = (function (global) {
               } else {
                 element.value = value;
               }
+              
+              // edge case for <progress> elements
+              if (element.nodeName === 'PROGRESS') {
+                // also do .value
+                element.value = value;
+              }
             });
           }
         };
