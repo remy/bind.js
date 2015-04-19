@@ -1,14 +1,15 @@
+'use strict';
 var Bind = require('../bind');
 var assert = require('assert');
 var sinon = require('sinon');
-/*globals describe:true, assert: true, beforeEach: true, Bind:true, sinon:true, it:true */
-describe('Bind', function(){
-  var data,
-      callbacks = {},
-      spy;
+/*globals describe, assert, beforeEach, Bind, sinon, it */
+describe('Bind', function () {
+  var data;
+  var callbacks = {};
+  var spy;
 
-  beforeEach(function(done){
-    spy = sinon.spy(function (n, o) {
+  beforeEach(function (done) {
+    spy = sinon.spy(function (n) {
       return n;
     });
 
@@ -22,30 +23,30 @@ describe('Bind', function(){
       name: noop(),
       cats: noop(),
       dizzy: noop(),
-      city: noop()
+      city: noop(),
     };
 
     data = new Bind({
       name: 'remy',
       location: {
         city: 'Brighton',
-        county: 'East Sussex'
+        county: 'East Sussex',
       },
       cats: [{
         name: 'dizzy',
-        colour: 'tabby'
+        colour: 'tabby',
       }, {
         name: 'ninja',
-        colour: 'black & white'
+        colour: 'black & white',
       }, {
         name: 'missy',
-        colour: 'black'
-      }]
+        colour: 'black',
+      },],
     }, { // here be the mapping
-      'name': callbacks.name,
-      'cats': callbacks.cats,
+      name: callbacks.name,
+      cats: callbacks.cats,
       'cats.0.name': callbacks.dizzy,
-      'location.city': callbacks.city
+      'location.city': callbacks.city,
     });
 
     setTimeout(done, 10);
@@ -68,8 +69,8 @@ describe('Bind', function(){
     });
   });
 
-  describe('data.prop change & callback', function(){
-    it('captures changes', function(){
+  describe('data.prop change & callback', function () {
+    it('captures changes', function () {
       assert.ok(callbacks.name.calledOnce, 'callback has fired on init');
       data.name = 'julie';
       assert.ok(callbacks.name.calledTwice, 'callback fired after change');
@@ -79,7 +80,7 @@ describe('Bind', function(){
     });
   });
 
-  describe('deep object change', function() {
+  describe('deep object change', function () {
     it('captures deep changes', function () {
       assert.ok(callbacks.city.calledOnce);
       data.location.city = 'London';
@@ -89,21 +90,21 @@ describe('Bind', function(){
 
   describe('setting arbitrary objects', function () {
     it('allows object to be set as property', function (done) {
-       data.location = {'city': 'London'};
-       assert.ok(callbacks.city.calledTwice);
-       done();
+      data.location = { 'city': 'London' };
+      assert.ok(callbacks.city.calledTwice);
+      done();
     });
   });
 
   describe('arrays', function () {
     it('should bind to simple arrays [1,2,3]', function (done) {
-      var data = new Bind([1,2,3], {
-        '0': sinon.spy(function (newval, oldval) {
+      var data = new Bind([1, 2, 3], {
+        0: sinon.spy(function (newval) {
           assert.ok(newval === 1);
         }),
-        '1': sinon.spy(function (n, o) {
+        1: sinon.spy(function (n) {
           assert.ok(n === 2);
-        })
+        }),
       });
 
       assert.ok(data.length === 3);
@@ -125,9 +126,9 @@ describe('Bind', function(){
 
       // `data` - getting rather meta now...
       var data = new Bind({
-        data: [1,2,3]
+        data: [1, 2, 3],
       }, {
-        data: callback
+        data: callback,
       });
 
       data.data.shift();
@@ -138,9 +139,9 @@ describe('Bind', function(){
 
     it('should trigger changes on individual item changes', function (done) {
       var data = new Bind({
-        a: [1,2,3]
+        a: [1, 2, 3],
       }, {
-        'a.0': spy
+        'a.0': spy,
       });
 
       sinon.assert.callCount(spy, 1);
@@ -161,7 +162,7 @@ describe('Bind', function(){
       assert.ok(callbacks.cats.calledOnce);
 
       data.cats.push({
-        'name': 'Jed'
+        name: 'Jed',
       });
 
       assert.ok('length correct', data.cats.length === length + 1);
