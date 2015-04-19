@@ -1,28 +1,46 @@
 <p>Score: <span class="score">0</span></p>
 <p>Score: <input type="range" min=0 max=100 value=0 class="score"></p>
-<p>Name: <span id="name">---</span></p>
+<p>Name: <input class="name" value="---"> (echoed: <span class="name">(echoed name)</span>)</p>
+
+<p>Location: <select id="location">
+  <option>Brighton</option>
+  <option>Berlin</option>
+  <option>New York</option>
+</select></p>
+
+<p>Toys Story's: <label>one <input name="toystorys" type="checkbox" value="one"></label>
+<label>two <input name="toystorys" type="checkbox" value="two"></label>
+<label>three <input name="toystorys" type="checkbox" value="three"></label></p>
 
 <ul id="cats"></ul>
 
 <script src="../../bind.js"></script>
-<script type="text/javascript">
+<script type="text/javascript-x">
       var data = new Bind({
-        a: [1,2,3]
+        a: [1,2,3],
+        b: []
       }, {
         'a.0': function (n) {
           console.trace('changed', n);
+        },
+        b: function (New, old) {
+          console.log('b changed', old, New);
         }
       });
 
 data.a[0] = 10;
 
+data.b.push(9);
+data.b.push(10);
+
 </script>
-<script type="foo">
-document.querySelector('input').onchange = function () {
-  data.me.score = this.value;
-};
+<script>
+// document.querySelector('input').onchange = function () {
+//   data.me.score = this.value;
+// };
 
 var data = Bind({
+  ts: [],
   me: {
     name: "@rem",
     score: 11,
@@ -30,27 +48,31 @@ var data = Bind({
       city: 'Brighton',
       country: 'England'
     },
-    cats: ['ninja', 'missy', 'dizzy']
+    cats: [{ name: 'ninja'}, { name: 'missy'} , { name: 'dizzy' }]
   }
 }, {
+  ts: 'input[name="toystorys"]',
   'me.score': '.score',
-  'me.name': '#name',
-  'me.location.city': function (city) {
-    // console.log(data.me.name + "'s city is " + city, (new Error).stack.replace(/^Error\n/, '\n'));
+  'me.name': '.name',
+  'me.location.city': '#location',
+  'me.cats.0.name': function (value) {
+    console.log('first cat name is ' + value);
   },
   'me.location.country': function (country) {
-    // console.log('country', country, (new Error).stack.replace(/^Error\n/, '\n'));
+    console.log('country', country, (new Error).stack.replace(/^Error\n/, '\n'));
   },
   'me.cats': function (n, old) {
     console.log('cat changed!', n, old); //, (new Error).stack.replace(/^Error\n/, '\n'));
-    document.querySelector('#cats').innerHTML = '<li>' + n.join('<li>');
+    document.querySelector('#cats').innerHTML = '<li>' + n.map(function (i) {
+      return i.name;
+    }).join('<li>');
   },
   'me.cats.1': function (n, old) {
     console.log('me.cats.1 changed to', n, 'from', old);
   }
 });
 
-data.me.cats.push('sam');
+data.me.cats.push({ name: 'sam' });
 
 // data.me.location = 'London';
 // data.me = {
