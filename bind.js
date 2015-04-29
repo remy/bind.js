@@ -53,7 +53,7 @@ var Bind = (function Bind(global) {
   'use strict';
   // support check
   if (!Function.bind) {
-    throw new Error('Prerequisite APIs not available. Perhaps try polyfilling first?');
+    throw new Error('Prerequisite APIs not available: Function.bind');
   }
 
   // this is a conditional because we're also supporting node environment
@@ -63,12 +63,10 @@ var Bind = (function Bind(global) {
   var o = 'object';
 
   // via https://github.com/codemix/fast.js/blob/master/array/forEach.js
-  function forEach(subject, fn, thisContext) {
-    var length = subject.length,
-        iterator = thisContext !== undefined ? bindInternal3(fn, thisContext) : fn,
-        i;
-    for (i = 0; i < length; i++) {
-      iterator(subject[i], i, subject);
+  function forEach(subject, fn) {
+    var length = subject.length;
+    for (var i = 0; i < length; i++) {
+      fn(subject[i], i, subject);
     }
   };
 
@@ -132,7 +130,7 @@ var Bind = (function Bind(global) {
               } else {
                 element.innerHTML = value;
               }
-              
+
               // edge case for <progress> elements
               if (element.nodeName === 'PROGRESS') {
                 // also do .value
@@ -146,11 +144,11 @@ var Bind = (function Bind(global) {
         forEach(elements, function (element) {
           if (element.nodeName === 'INPUT' || element.nodeName === 'SELECT') {
             element.addEventListener('input', function () {
-              if (this.type === 'checkbox') {
-
-              } else {
-                object[key] = this.value;
-              }
+              // if (this.type === 'checkbox') {
+              // FIXME can't handle multiple checkbox values
+              // } else {
+              target[key] = this.value;
+              // }
             });
           }
         });
