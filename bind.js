@@ -107,34 +107,33 @@ var Bind = (function Bind(global) {
       // user.name when joined later.
       path.push(key);
 
+      var selector = settings.mapping[path.join('.')];
+
       // look for the path in the mapping arg, and if the gave
       // us a callback, use that, otherwise...
-      if (typeof settings.mapping[path.join('.')] === 'function') {
-        callback = settings.mapping[path.join('.')];
-      } else if (settings.mapping[path.join('.')]) {
+      if (typeof selector === 'function') {
+        callback = selector;
+      } else if (selector) {
         // cache the matched elements. Note the :) is because qSA won't allow an
         // empty (or undefined) string so I like the smilie.
-        var elements = $(settings.mapping[path.join('.')] || '☺');
+        var elements = $(selector || '☺');
+
+        if (elements.length === 0) {
+          console.warn('No elements found against "' + selector + '" selector');
+        }
 
         // create a callback that loops over *all* the elements
         // matched from the selector (set up below), that checks
         // the node type, and either sets the input.value or
         // element.innerHTML to the value
+        var valueSetters = ['SELECT', 'INPUT', 'PROGRESS'];
         callback = function (value) {
           if (elements) {
             forEach(elements, function (element) {
-              if (element.nodeName === 'SELECT') {
-                element.value = value;
-              } else if (element.nodeName === 'INPUT') {
+              if (valueSetters.indexOf(element.nodeName) !== -1) {
                 element.value = value;
               } else {
                 element.innerHTML = value;
-              }
-
-              // edge case for <progress> elements
-              if (element.nodeName === 'PROGRESS') {
-                // also do .value
-                element.value = value;
               }
             });
           }
@@ -184,7 +183,7 @@ var Bind = (function Bind(global) {
 
           // only fire the callback immediately when the initial data binding
           // is set up. If it's not, then defer until complete
-          var cbwrapper = function (callback, value, old, target, parentIsArray) {
+          var cbwrapper = function initValue(callback, value, old, target, parentIsArray) {
             callback(value, old);
             // debugger;
             if (parentIsArray && !target.__dirty && target.__callback) {
@@ -254,7 +253,7 @@ var Bind = (function Bind(global) {
       // in a setTimeout(fn, 0) - but this means any changes that are
       // synchonous in the code that creates the bind object, will
       // run *before* this callback loop runs. Basically: race.
-      forEach(settings.deferred, function (fn) {
+      forEach(settings.deferred, function deferreds(fn) {
         fn.call(this);
       }.bind(this));
     }
