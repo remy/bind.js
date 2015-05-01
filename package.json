@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "karma start"
   },
   "repository": {
     "type": "git",
@@ -17,10 +17,16 @@
   "license": "BSD",
   "readmeFilename": "README.md",
   "gitHead": "59b398e1007d41a41d8fb73a659b9fc4ba4fa20a",
-  "dependencies": {
-    "sinon": "~1.7.3"
-  },
   "devDependencies": {
-    "mocha": "^2.2.4"
+    "chai": "^2.3.0",
+    "karma": "^0.12.31",
+    "karma-browserify": "^4.1.2",
+    "karma-chai": "^0.1.0",
+    "karma-coverage": "^0.3.1",
+    "karma-firefox-launcher": "^0.1.4",
+    "karma-mocha": "^0.1.10",
+    "karma-sinon": "^1.0.4",
+    "mocha": "^2.2.4",
+    "sinon": "^1.14.1"
   }
 }

@@ -1,7 +1,16 @@
 'use strict';
+var sinon = require('sinon');
 var Bind = require('../bind');
 var assert = require('assert');
-var sinon = require('sinon');
+
+beforeEach(function () {
+  this.sinon = sinon.sandbox.create();
+});
+
+afterEach(function () {
+  this.sinon.restore();
+});
+
 /*globals describe, assert, beforeEach, Bind, sinon, it */
 describe('Bind', function () {
   var data;
@@ -41,7 +50,7 @@ describe('Bind', function () {
       }, {
         name: 'missy',
         colour: 'black',
-      },],
+      }, ],
     }, { // here be the mapping
       name: callbacks.name,
       cats: callbacks.cats,
