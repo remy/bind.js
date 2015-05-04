@@ -3,7 +3,8 @@ node_js:
   - "0.10"
   - "0.8"
 before_script:
-  - npm install -g mocha
   - npm install
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
 notifications:
   email: false
