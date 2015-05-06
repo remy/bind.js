@@ -23,7 +23,7 @@ module.exports = function (config) {
 
     browserify: {
       debug: true,
-      // transform: ['browserify-istanbul'],
+      transform: ['browserify-istanbul'],
     },
 
     // use dots reporter, as travis terminal does not support escaping sequences

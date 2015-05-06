@@ -12,8 +12,10 @@ describe('two way data bind', function () {
     html(window.__html__['test/two-way.html']);
     data = Bind({
       score: 10,
+      name: 'Julie',
     }, {
       score: '.score',
+      name: '.name',
     });
   });
 
@@ -45,7 +47,7 @@ describe('two way data bind', function () {
     var node = document.querySelector('input.score');
     node.value = 10;
     var event = document.createEvent('HTMLEvents');
-    event.initEvent('input', true, true );
+    event.initEvent('input', true, true);
     node.dispatchEvent(event);
 
     setTimeout(function () {
@@ -54,4 +56,19 @@ describe('two way data bind', function () {
     }, 10);
   });
 
+  it('should support text fields', function (done) {
+    var node = document.querySelector('input.name');
+    assert.ok(node.value === data.name, 'found ' + data.name);
+
+    node.value = 'remy';
+    var event = document.createEvent('HTMLEvents');
+    event.initEvent('input', true, true);
+    node.dispatchEvent(event);
+
+    setTimeout(function () {
+      assert.ok(data.name === 'remy', 'found ' + data.name);
+      done();
+    }, 10);
+
+  });
 });
