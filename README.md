@@ -6,8 +6,9 @@ Simple data binding for callbacks & HTML (also node.js compatible).
 
 ## Demos
 
-- [Hangman game](http://jsbin.com/oZOvIJ/5/edit?js,output) - more involved example of data binding
-- [Simple one to one binding](http://jsbin.com/xavej/1/edit?js,output) - time & modulus bound to simple elements
+- [Hangman game](http://rem.jsbin.com/oZOvIJ/9/edit?js,output) - more involved example of data binding
+- [Simple one to one binding](http://rem.jsbin.com/xavej/2/edit?js,output) - time & modulus bound to simple elements
+- [Two way binding](http://rem.jsbin.com/vezeja/5/edit?js,output) - value updates on interval, and DOM updates with it
 
 ## Requires
 
