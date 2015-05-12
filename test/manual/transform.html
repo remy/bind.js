@@ -31,22 +31,20 @@ var cats = [{
 
 // cats = 'missy dizzy ninja'.split(' ')
 
-data = new Bind({
+data = bind({
   cats: cats,
   // name: cats[0].name,
 }, {
   // data bind mapping
   'cats.0.name': {
     dom: '#first',
-    // transform: function (v) {
-    //   // return 'Name: ' + v;
-    // },
-    // parse: function (v) {
-    //   console.log('ours');
-    //   // return v.replace(/^(Name: )/, '');
-    // }
+    transform: function (v) {
+      // try setting data.cats[0].name from the console
+      return 'Name: ' + v;
+    },
     parse: function (v) {
-      // data.cats[0].name = v;
+      // this will always remove the leading "Name: " before setting to the value
+      return v.replace(/^(Name: )/, '');
     }
   },
   cats: {
@@ -56,8 +54,14 @@ data = new Bind({
       return '<li><strong>' + value.name + '</strong>: <em>' + value.type + '</em></li>';
     },
     callback: function (v) {
-      console.trace('done');
+      // console.trace('done');
     }
   },
 });
+
+console.log('Things to try:');
+console.log('data.cats.shift()');
+console.log('data.cats[0].name = "nap"');
+console.log('data.cats = [{ name: "nap", type: "black" }, { name: "sam", type: "black & white" }]');
+
 </script>

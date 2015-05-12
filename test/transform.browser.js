@@ -1,16 +1,17 @@
 'use strict';
 var assert = require('assert');
+var sinon = require('sinon');
 var html = require('./html');
-var Bind = require('../');
+var bind = require('../');
 
-/*globals describe, assert, beforeEach, Bind, it */
+/*globals describe, assert, beforeEach, it */
 describe('transform with bind', function () {
   var data;
 
   beforeEach(function () {
     html(window.__html__['test/transform.html']);
 
-    data = new Bind({
+    data = bind({
       cats: [
       {
         name: 'missy',
@@ -39,18 +40,50 @@ describe('transform with bind', function () {
     assert.ok(found === 3, 'found ' + found);
   });
 
-  // it('should update data based on element changes', function (done) {
-  //   var node = document.querySelector('input.score');
-  //   node.value = 10;
-  //   var event = document.createEvent('HTMLEvents');
-  //   event.initEvent('input', true, true);
-  //   node.dispatchEvent(event);
+  it('should update the DOM when values change', function () {
+    data.cats.push({ name: 'nap', type: 'black & white' });
+    var nodes = document.querySelectorAll('#cats li');
+    var found = nodes.length;
+    assert.ok(found === 4, 'found ' + found);
+  });
 
-  //   setTimeout(function () {
-  //     assert.ok(data.score === 10, 'found ' + data.score + ' - ' + typeof data.score);
-  //     done();
-  //   }, 10);
-  // });
+  it('should support parse before object updates', function (done) {
+    var parse = sinon.spy(function (v) {
+      return 'XXX';
+    });
+    var transform = sinon.spy(function (v) {
+      return 'sam';
+    });
+
+    var data = bind({
+      name: 'nap',
+    }, {
+      name: {
+        dom: '#name',
+        parse: parse,
+        transform: transform,
+      },
+    });
+
+    var node = document.querySelector('#name');
+
+    var tCallCount = transform.callCount;
+    data.name = 'foo';
+    assert.ok(node.value === 'sam', 'real node value: ' + node.value);
+    assert.ok(transform.callCount === tCallCount + 1, 'transform called ' + transform.callCount);
+
+    var pCallCount = parse.callCount;
+    node.value = 'bar';
+    var event = document.createEvent('HTMLEvents');
+    event.initEvent('input', true, true);
+    node.dispatchEvent(event);
+
+    setTimeout(function () {
+      assert.ok(parse.callCount === pCallCount + 1, 'parse called ' + parse.callCount);
+      assert.ok(data.name === 'XXX', node.value + ' & ' + data.name);
+      done();
+    }, 10);
+  });
 
   // it('should support text fields', function (done) {
   //   var node = document.querySelector('input.name');

@@ -1,9 +1,7 @@
 /*globals describe:true, assert: true, beforeEach: true, Bind:true, sinon:true, it:true */
 var sinon = require('sinon');
 var assert = require('assert');
-var Bind = require('../');
-
-console.log('---------');
+var bind = require('../');
 
 describe('arrays', function () {
   'use strict';
@@ -20,7 +18,7 @@ describe('arrays', function () {
       city: sinon.spy(),
     };
 
-    data = new Bind({
+    data = bind({
       cats: [{
         name: 'dizzy',
         colour: 'tabby',
@@ -38,17 +36,17 @@ describe('arrays', function () {
 
   it('should have called the callback on initialisation', function () {
     // note that call count is 2 as there's the instanciation
-    var data = new Bind({
-      cats: 'sam nap'.split(' ')
+    var data = bind({
+      cats: 'sam nap'.split(' '),
     }, {
-      cats: spy
+      cats: spy,
     })
 
     assert.ok(spy.calledOnce, spy.callCount);
   });
 
   it('should bind to simple arrays [1,2,3]', function (done) {
-    var data = new Bind([1, 2, 3], {
+    var data = bind([1, 2, 3], {
       0: sinon.spy(function (newval) {
         spy();
         assert.ok(newval === 1);
@@ -61,7 +59,7 @@ describe('arrays', function () {
 
     assert.ok(data.length === 3);
 
-    setTimeout(function() {
+    setTimeout(function () {
       assert.ok(spy.callCount === 2);
       done();
     }, 10);
@@ -80,7 +78,7 @@ describe('arrays', function () {
     });
 
     // `data` - getting rather meta now...
-    var data = new Bind({
+    var data = bind({
       data: [1, 2, 3],
     }, {
       data: callback,
@@ -94,7 +92,7 @@ describe('arrays', function () {
 
   it('should trigger changes on individual item changes', function (done) {
     var spy = sinon.spy();
-    var data = new Bind({
+    var data = bind({
       a: [1, 2, 3],
     }, {
       'a.0': spy,
@@ -122,7 +120,7 @@ describe('arrays', function () {
   });
 
   it('should callback on individual item change', function () {
-    var data = new Bind({
+    var data = bind({
       cats: [{
         name: 'dizzy',
         colour: 'tabby',
@@ -161,5 +159,43 @@ describe('arrays', function () {
     data.cats[0].name = 'dennis';
     assert.ok(data.cats[0].name === 'dennis');
     assert.ok(callbacks.cats.calledTwice, 'callback was called ' + callbacks.cats.callCount);
+  });
+
+  it('should support every array method', function (done) {
+    var data = bind({
+      cats: 'ninja dizzy missy'.split(' ')
+    }, {
+      cats: spy
+    });
+    setTimeout(function () {
+      assert.ok(spy.callCount === 1);
+      assert.ok(data.cats.pop() === 'missy');
+      assert.ok(spy.callCount === 2);
+      assert.ok(data.cats.shift() === 'ninja');
+      assert.ok(spy.callCount === 3);
+      assert.ok(data.cats.unshift('nap') === data.cats.length);
+      assert.ok(spy.callCount === 4);
+
+      //etc
+
+      done();
+    }, 10);
+  });
+
+  it('should support being entirely replaced', function () {
+    var single = sinon.spy();
+    var data = bind({
+      cats: 'ninja dizzy missy'.split(' ')
+    }, {
+      cats: spy,
+      'cats.0': single
+    });
+
+    var count = single.callCount;
+    data.cats = 'nap sam'.split(' ');
+    assert.ok(single.calledWith('nap'));
+    assert.ok(count + 1 === single.callCount);
+    data.cats[0] = 'prince';
+    assert.ok(single.calledWith('prince'));
   });
 });

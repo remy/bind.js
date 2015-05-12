@@ -52,6 +52,20 @@ describe('numbers', function () {
     assert(spy.withArgs(11, 10).calledOnce);
   });
 
+  it('should support callbacks in advanced mode', function () {
+    var data = new Bind({
+      score: 10,
+    }, {
+      score: {
+        callback: spy
+      }
+    });
+
+    data.score = 11;
+    assert(spy.withArgs(11, 10).calledOnce);
+  });
+
+
   it('should trigger on deep object value change', function () {
     data.players[1].highscore++;
     assert(spy2.callCount === 2);
