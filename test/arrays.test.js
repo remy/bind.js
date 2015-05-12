@@ -33,23 +33,38 @@ describe('arrays', function () {
       }, ],
     }, { // here be the mapping
       cats: callbacks.cats,
-      'cats.0.name': callbacks.dizzy,
     });
-  })
+  });
+
+  it('should have called the callback on initialisation', function () {
+    // note that call count is 2 as there's the instanciation
+    var data = new Bind({
+      cats: 'sam nap'.split(' ')
+    }, {
+      cats: spy
+    })
+
+    assert.ok(spy.calledOnce, spy.callCount);
+  });
 
   it('should bind to simple arrays [1,2,3]', function (done) {
     var data = new Bind([1, 2, 3], {
       0: sinon.spy(function (newval) {
+        spy();
         assert.ok(newval === 1);
       }),
       1: sinon.spy(function (n) {
+        spy();
         assert.ok(n === 2);
       }),
     });
 
     assert.ok(data.length === 3);
 
-    setTimeout(done, 10);
+    setTimeout(function() {
+      assert.ok(spy.callCount === 2);
+      done();
+    }, 10);
   });
 
   it('should trigger change when array length changes', function (done) {
@@ -93,14 +108,10 @@ describe('arrays', function () {
     done();
   });
 
-  it('should have called the callback on initialisation', function () {
-    assert.ok(callbacks.cats.calledOnce);
-  });
-
   it('should callback on push', function () {
     var length = data.cats.length;
 
-    assert.ok(callbacks.cats.calledOnce);
+    assert.ok(callbacks.cats.calledOnce, 'call count: ' + callbacks.cats.callCount);
 
     data.cats.push({
       name: 'Jed',
@@ -111,6 +122,21 @@ describe('arrays', function () {
   });
 
   it('should callback on individual item change', function () {
+    var data = new Bind({
+      cats: [{
+        name: 'dizzy',
+        colour: 'tabby',
+      }, {
+        name: 'ninja',
+        colour: 'black & white',
+      }, {
+        name: 'missy',
+        colour: 'black',
+      }, ],
+    }, { // here be the mapping
+      cats: callbacks.cats,
+      'cats.0.name': callbacks.dizzy,
+    });
     assert.ok(callbacks.dizzy.calledOnce);
     data.cats[0].name = 'Jed';
     assert.ok(callbacks.dizzy.calledTwice);
@@ -130,4 +156,10 @@ describe('arrays', function () {
     assert.ok(data.cats[2] === undefined, 'undefined found on index 2');
   });
 
+  it('should bubble change to array callback when individual array prop is changed', function () {
+    assert.ok(callbacks.cats.calledOnce);
+    data.cats[0].name = 'dennis';
+    assert.ok(data.cats[0].name === 'dennis');
+    assert.ok(callbacks.cats.calledTwice, 'callback was called ' + callbacks.cats.callCount);
+  });
 });

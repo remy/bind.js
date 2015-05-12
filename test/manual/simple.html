@@ -1,4 +1,4 @@
-<p>Score: <span class="score">0</span></p>
+<p>Score: <input class="score"></p>
 <p>Score: <input type="range" min=0 max=100 value=0 class="score"></p>
 <p>Score: <progress class="score" min=0 max=100 value=0></p>
 <p>Name: <input class="name" value="---"> (echoed: <span class="name">(echoed name)</span>)</p>
@@ -16,26 +16,8 @@
 
 <ul id="cats"></ul>
 
-<script src="../../bind.js"></script>
-<script type="text/javascript-x">
-      var data = new Bind({
-        a: [1,2,3],
-        b: []
-      }, {
-        'a.0': function (n) {
-          console.trace('changed', n);
-        },
-        b: function (New, old) {
-          console.log('b changed', old, New);
-        }
-      });
-
-data.a[0] = 10;
-
-data.b.push(9);
-data.b.push(10);
-
-</script>
+<script src="../../lib/bind.js"></script>
+<!-- <script src="https://rawgit.com/remy/bind/master/dist/bind.min.js"></script> -->
 <script>
 // document.querySelector('input').onchange = function () {
 //   data.me.score = this.value;
