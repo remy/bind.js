@@ -29,14 +29,14 @@ var cats = [{
   type: 'black and white',
 }]
 
-cats = 'missy dizzy ninja'.split(' ')
+// cats = 'missy dizzy ninja'.split(' ')
 
 data = new Bind({
   cats: cats,
   // name: cats[0].name,
 }, {
   // data bind mapping
-  'cats.0': {
+  'cats.0.name': {
     dom: '#first',
     // transform: function (v) {
     //   // return 'Name: ' + v;
@@ -52,8 +52,8 @@ data = new Bind({
   cats: {
     dom: '#cats',
     transform: function (value) {
-      return '<li>' + value;
-      // return '<li><strong>' + value.name + '</strong>: <em>' + value.type + '</em></li>';
+      // return '<li>' + value;
+      return '<li><strong>' + value.name + '</strong>: <em>' + value.type + '</em></li>';
     },
     callback: function (v) {
       console.trace('done');
