@@ -15,10 +15,10 @@
 <div class="header high">
     <h1>Code coverage report for <span class="entity">lib/bind.js</span></h1>
     <h2>
-        Statements: <span class="metric">92.73% <small>(153 / 165)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">93.87% <small>(153 / 163)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         Branches: <span class="metric">83.05% <small>(98 / 118)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         Functions: <span class="metric">96.15% <small>(25 / 26)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
-        Lines: <span class="metric">92.55% <small>(149 / 161)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">93.75% <small>(150 / 160)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
     <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">lib/</a> &#187; bind.js</div>
@@ -426,7 +426,7 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">377</span>
 <span class="cline-any cline-yes">377</span>
-<span class="cline-any cline-yes">1121</span>
+<span class="cline-any cline-yes">1120</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -633,8 +633,6 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">678</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">678</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -642,15 +640,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">679</span>
-<span class="cline-any cline-yes">277</span>
-<span class="cline-any cline-yes">277</span>
-<span class="cline-any cline-yes">107</span>
+<span class="cline-any cline-yes">205</span>
+<span class="cline-any cline-yes">205</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">205</span>
+<span class="cline-any cline-yes">35</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">679</span>
-<span class="cline-any cline-yes">679</span>
+<span class="cline-any cline-yes">313</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">679</span>
@@ -661,13 +661,13 @@
 <span class="cline-any cline-yes">147</span>
 <span class="cline-any cline-yes">516</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">3</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">252</span>
+<span class="cline-any cline-yes">1244</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -738,17 +738,17 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">5</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">5</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">5</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">4</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
@@ -1002,9 +1002,7 @@ var Bind = (function Bind(global) {
           if (settings.ready &amp;&amp; typeof v === o &amp;&amp; v !== null &amp;&amp; !Array.isArray(v)) {
             value = extend(target[key] || <span class="branch-1 cbranch-no" title="branch not covered" >{},</span> v, settings, path, target);
           } else <span class="missing-if-branch" title="if path not taken" >I</span>if (Array.isArray(v)) {
-<span class="cstat-no" title="statement not covered" >            var tmp = new AugmentedArray(callback, settings);</span>
-<span class="cstat-no" title="statement not covered" >            tmp.push.apply(tmp, v);</span>
-<span class="cstat-no" title="statement not covered" >            value = tmp;</span>
+<span class="cstat-no" title="statement not covered" >            value = extend(new AugmentedArray(callback, settings), v, settings, path, target);</span>
           } else {
             value = v;
           }
@@ -1012,15 +1010,17 @@ var Bind = (function Bind(global) {
           // only fire the callback immediately when the initial data binding
           // is set up. If it's not, then defer until complete
           var cbwrapper = function initValue(callback, value, old, target, parentIsArray) {
-            if (callback) callback(value, old);
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (callback) {
+              callback(value, old);
+            }
+&nbsp;
             if (parent &amp;&amp; parent.__callback) {
               parent.__callback(parent, oldparent);
             }
           }.bind(null, callback, value, old, target, parentIsArray);
 &nbsp;
-          // expose the callback for chained calling
-          <span class="missing-if-branch" title="else path not taken" >E</span>if (target instanceof Object) {
-            target.__callback = cbwrapper;
+          if (target[key] instanceof Object) {
+            target[key].__callback = cbwrapper;
           }
 &nbsp;
           if (settings.ready &amp;&amp; callback) {
@@ -1029,9 +1029,9 @@ var Bind = (function Bind(global) {
           } else if (callback) {
             // defer the callback until we're fully booted
             settings.deferred.push(cbwrapper);
-          } else if (settings.ready) {
+          } else if (settings.ready &amp;&amp; parent) {
             // but there's no callback, check the parent first
-            if (parentIsArray &amp;&amp; parent.__callback) {
+            if (parent.__callback) {
               parent.__callback(parent, oldparent);
             }
           }
@@ -1140,7 +1140,7 @@ var Bind = (function Bind(global) {
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue May 12 2015 15:17:48 GMT+0100 (BST)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue May 12 2015 19:36:36 GMT+0100 (BST)</div>
 </div>
 <script src="../prettify.js"></script>
 <script>
