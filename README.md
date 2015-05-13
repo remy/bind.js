@@ -1,6 +1,6 @@
 # Bind.js
 
-Simple data binding for callbacks & HTML (also node.js compatible).
+Two way data binding for HTML and JavaScript (also node.js compatible) with support for transforming data.
 
 [![Test status](https://api.travis-ci.org/remy/bind.png?branch=master)](https://travis-ci.org/remy/bind)
 
@@ -11,7 +11,7 @@ Simple data binding for callbacks & HTML (also node.js compatible).
 
 ## Requires
 
-setters/gettings, bind, qSA, getOwnPropertyNames, forEach - basically evergreen browser
+setters/gettings, fn.bind, qSA (if using selectors), getOwnPropertyNames.
 
 ## Arguments
 
@@ -75,7 +75,10 @@ There's no handling deleted properties. Once a property is deleted, if it's adde
 data.me.score++; // updates element#score
 delete data.me.score;
 data.me.score = 1; // does nothing
-data.me = { // restores because the data.me setter is still intact as is the map for me.score
+
+// A work around is to restore the property object, the following
+// re-uses the bind map, and updates element#score again
+data.me = {
   score: 1,
   // ... etc
 };
