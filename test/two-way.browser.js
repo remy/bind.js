@@ -10,6 +10,7 @@ describe('two way data bind', function () {
 
   beforeEach(function () {
     html(window.__html__['test/two-way.html']);
+
     data = Bind({
       score: 10,
       name: 'Julie',

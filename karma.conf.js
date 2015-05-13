@@ -31,8 +31,13 @@ module.exports = function (config) {
     // CLI --reporters progress
     reporters: ['mocha', 'coverage'],
     coverageReporter: {
-      type: 'lcov',
-      dir: 'coverage'
+      type: process.env.TRAVIS ? 'lcovonly' : 'html',
+      dir: 'coverage',
+
+      reporters: [
+        { type: 'html' },
+        { type: 'lcovonly', subdir: '.' },
+      ]
     },
     // web server port
     // CLI --port 9876
