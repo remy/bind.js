@@ -20,6 +20,8 @@
 
 <ul id="cats"></ul>
 
+<pre id="output"></pre>
+
 <script src="../../lib/bind.js"></script>
 <!-- <script src="https://rawgit.com/remy/bind/master/dist/bind.min.js"></script> -->
 <script>
@@ -28,9 +30,9 @@
 // };
 
 var data = Bind({
-  ts: ['one', 'two'],
-  fav: 'one',
   me: {
+    fav: 'one',
+    ts: ['one', 'two'],
     name: "@rem",
     score: 11,
     location: {
@@ -40,8 +42,14 @@ var data = Bind({
     cats: [{ name: 'ninja'}, { name: 'missy'} , { name: 'dizzy' }]
   }
 }, {
-  fav: 'input[name="favtoystorys"]',
-  ts: 'input[name="toystorys"]',
+  me: {
+    callback: function () {
+      console.count('export')
+      document.querySelector('#output').innerHTML = JSON.stringify(this.__export(), '', 2);
+    },
+  },
+  'me.fav': 'input[name="favtoystorys"]',
+  'me.ts': 'input[name="toystorys"]',
   'me.score': '.score',
   'me.name': '.name',
   'me.location.city': '#location',

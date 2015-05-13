@@ -155,10 +155,10 @@ describe('arrays', function () {
   });
 
   it('should bubble change to array callback when individual array prop is changed', function () {
-    assert.ok(callbacks.cats.calledOnce);
+    var count = callbacks.cats.callCount;
     data.cats[0].name = 'dennis';
     assert.ok(data.cats[0].name === 'dennis');
-    assert.ok(callbacks.cats.calledTwice, 'callback was called ' + callbacks.cats.callCount);
+    assert.ok(callbacks.cats.callCount == count + 1, 'callback was called ' + callbacks.cats.callCount);
   });
 
   it('should support every array method', function (done) {
