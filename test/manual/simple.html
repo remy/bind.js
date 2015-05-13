@@ -14,6 +14,10 @@
 <label>two <input name="toystorys" type="checkbox" value="two"></label>
 <label>three <input name="toystorys" type="checkbox" value="three"></label></p>
 
+<p>Fav Toys Story? <label>one <input name="favtoystorys" type="radio" value="one"></label>
+<label>two <input name="favtoystorys" type="radio" value="two"></label>
+<label>three <input name="favtoystorys" type="radio" value="three"></label></p>
+
 <ul id="cats"></ul>
 
 <script src="../../lib/bind.js"></script>
@@ -24,7 +28,8 @@
 // };
 
 var data = Bind({
-  ts: [],
+  ts: ['one', 'two'],
+  fav: 'one',
   me: {
     name: "@rem",
     score: 11,
@@ -35,24 +40,25 @@ var data = Bind({
     cats: [{ name: 'ninja'}, { name: 'missy'} , { name: 'dizzy' }]
   }
 }, {
+  fav: 'input[name="favtoystorys"]',
   ts: 'input[name="toystorys"]',
   'me.score': '.score',
   'me.name': '.name',
   'me.location.city': '#location',
   'me.cats.0.name': function (value) {
-    console.log('first cat name is ' + value);
+    // console.log('first cat name is ' + value);
   },
   'me.location.country': function (country) {
-    console.log('country', country, (new Error).stack.replace(/^Error\n/, '\n'));
+    // console.log('country', country, (new Error).stack.replace(/^Error\n/, '\n'));
   },
   'me.cats': function (n, old) {
-    console.log('cat changed!', n, old); //, (new Error).stack.replace(/^Error\n/, '\n'));
+    // console.log('cat changed!', n, old); //, (new Error).stack.replace(/^Error\n/, '\n'));
     document.querySelector('#cats').innerHTML = '<li>' + n.map(function (i) {
       return i.name;
     }).join('<li>');
   },
   'me.cats.1': function (n, old) {
-    console.log('me.cats.1 changed to', n, 'from', old);
+    // console.log('me.cats.1 changed to', n, 'from', old);
   }
 });
 
