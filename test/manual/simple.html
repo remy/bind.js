@@ -1,3 +1,10 @@
+<style>
+pre {
+  float: right;
+  margin-right: 100px;
+}
+</style>
+<pre id="output"></pre>
 <p>Score: <input class="score"></p>
 <p>Score: <input type="range" min=0 max=100 value=0 class="score"></p>
 <p>Score: <progress class="score" min=0 max=100 value=0></p>
@@ -20,7 +27,8 @@
 
 <ul id="cats"></ul>
 
-<pre id="output"></pre>
+<ul id="list"></ul>
+
 
 <script src="../../lib/bind.js"></script>
 <!-- <script src="https://rawgit.com/remy/bind/master/dist/bind.min.js"></script> -->
@@ -39,14 +47,21 @@ var data = Bind({
       city: 'Brighton',
       country: 'England'
     },
-    cats: [{ name: 'ninja'}, { name: 'missy'} , { name: 'dizzy' }]
+    cats: [{ name: 'ninja'}, { name: 'missy'} , { name: 'dizzy' }],
+    list: [1,2,3]
   }
 }, {
   me: {
     callback: function () {
-      console.count('export')
+      // console.count('export')
       document.querySelector('#output').innerHTML = JSON.stringify(this.__export(), '', 2);
     },
+  },
+  'me.list': {
+    dom: '#list',
+    transform: function (v) {
+      return '<li>' + v;
+    }
   },
   'me.fav': 'input[name="favtoystorys"]',
   'me.ts': 'input[name="toystorys"]',
