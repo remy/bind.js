@@ -90,8 +90,9 @@ describe('deep object change', function () {
 
 describe('setting arbitrary objects', function () {
   it('allows object to be set as property', function (done) {
+    var count = callbacks.city.callCount;
     data.location = { 'city': 'London' };
-    assert.ok(callbacks.city.calledTwice);
+    assert.ok(callbacks.city.callCount === count + 1, 'called: ' + callbacks.city.callCount + ' vs ' + count);
     done();
   });
 });
