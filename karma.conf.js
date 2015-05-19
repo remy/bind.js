@@ -73,7 +73,7 @@ module.exports = function (config) {
 
     // Auto run tests on start (when browsers are captured) and exit
     // CLI --single-run --no-single-run
-    singleRun: true,
+    singleRun: false,
 
     // report which specs are slower than 500ms
     // CLI --report-slower-than 500
