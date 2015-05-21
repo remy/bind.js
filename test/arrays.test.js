@@ -165,13 +165,13 @@ describe('arrays', function () {
     });
     var count = spy.callCount;
     setTimeout(function () {
-      assert.ok(spy.callCount === (count + 0), 'count: ' + count + ' vs ' + spy.callCount);
+      assert.ok(spy.callCount === (count + 0), 'start count: ' + count + ' vs ' + spy.callCount);
       assert.ok(data.cats.pop() === 'missy');
-      assert.ok(spy.callCount === (count + 1), 'count: ' + count + ' vs ' + spy.callCount);
+      assert.ok(spy.callCount === (count + 1), 'pop count: ' + count + ' vs ' + spy.callCount);
       assert.ok(data.cats.shift() === 'ninja');
-      assert.ok(spy.callCount === (count + 2), 'count: ' + count + ' vs ' + spy.callCount);
+      assert.ok(spy.callCount === (count + 2), 'shift count: ' + count + ' vs ' + spy.callCount);
       assert.ok(data.cats.unshift('nap') === data.cats.length);
-      assert.ok(spy.callCount === (count + 3), 'count: ' + count + ' vs ' + spy.callCount);
+      assert.ok(spy.callCount === (count + 3), 'unshift count: ' + count + ' vs ' + spy.callCount);
 
       //etc
 
