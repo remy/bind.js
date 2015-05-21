@@ -1,0 +1,19 @@
+<ul></ul>
+<script src="../../lib/bind.js"></script>
+<script>
+var p = Bind({ cats: [{
+  name: 'nap'
+}, {
+  name: 'sam'
+}] }, { cats: {
+  dom: 'ul',
+  transform: function (v) {
+    return '<li>' + v.name
+  },
+  callback: function () {
+    console.log('updated')
+  }
+}
+});
+p.cats[0].name = 'foo'
+</script>

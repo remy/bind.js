@@ -190,9 +190,9 @@ describe('arrays', function () {
 
     var count = single.callCount;
     data.cats = 'nap sam'.split(' ');
-    assert.ok(single.calledWith('nap'));
-    assert.ok(count + 1 === single.callCount);
+    assert.ok(single.calledWith('nap'), 'called with nap: ' + single.args[0]);
+    assert.ok(count + 1 === single.callCount, 'call count: ' + single.callCount);
     data.cats[0] = 'prince';
-    assert.ok(single.calledWith('prince'));
+    assert.ok(single.calledWith('prince'), 'called with prince: ' + single.args[1]);
   });
 });

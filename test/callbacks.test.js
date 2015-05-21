@@ -42,14 +42,14 @@ describe('numbers', function () {
   });
 
   it('should trigger callback after init', function () {
-    assert(spy.withArgs(10, undefined).calledOnce);
+    assert(spy.withArgs(10).calledOnce);
   });
 
   it('should pass callback new value and old', function () {
-    assert(spy.withArgs(10, undefined).calledOnce);
+    assert(spy.withArgs(10).calledOnce);
 
     data.score = 11;
-    assert(spy.withArgs(11, 10).calledOnce);
+    assert(spy.withArgs(11).calledOnce);
   });
 
   it('should support callbacks in advanced mode', function () {
@@ -62,7 +62,7 @@ describe('numbers', function () {
     });
 
     data.score = 11;
-    assert(spy.withArgs(11, 10).calledOnce);
+    assert(spy.withArgs(11).calledOnce);
   });
 
 
