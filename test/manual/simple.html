@@ -53,7 +53,6 @@ var data = Bind({
 }, {
   me: {
     callback: function () {
-      // console.count('export')
       document.querySelector('#output').innerHTML = JSON.stringify(this.__export(), '', 2);
     },
   },
@@ -68,29 +67,14 @@ var data = Bind({
   'me.score': '.score',
   'me.name': '.name',
   'me.location.city': '#location',
-  'me.cats.0.name': function (value) {
-    // console.log('first cat name is ' + value);
-  },
-  'me.location.country': function (country) {
-    // console.log('country', country, (new Error).stack.replace(/^Error\n/, '\n'));
-  },
-  'me.cats': function (n, old) {
-    // console.log('cat changed!', n, old); //, (new Error).stack.replace(/^Error\n/, '\n'));
-    document.querySelector('#cats').innerHTML = '<li>' + n.map(function (i) {
-      return i.name;
-    }).join('<li>');
-  },
-  'me.cats.1': function (n, old) {
-    // console.log('me.cats.1 changed to', n, 'from', old);
+  'me.cats': {
+    dom: '#cats',
+    transform: function (cat) {
+      return '<li>' + cat.name;
+    }
   }
 });
 
 data.me.cats.push({ name: 'sam' });
-
-// data.me.location = 'London';
-// data.me = {
-//   name: 'Remy Sharp',
-//   score: 20
-// };
 
 </script>
