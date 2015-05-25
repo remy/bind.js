@@ -8,13 +8,13 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files: [
       'lib/**/*.js',
-      'test/**/*.html',
+      'test/*.html',
       'test/**/*.test.js',
       'test/**/*.browser.js',
     ],
 
     preprocessors: {
-      'test/**/*.html': ['html2js'],
+      'test/*.html': ['html2js'],
       'lib/**/*.js': 'coverage',
       'lib/**/*.js': ['browserify'],
       'test/**/*.test.js': ['browserify'],

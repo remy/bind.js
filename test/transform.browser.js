@@ -2,7 +2,7 @@
 var assert = require('assert');
 var sinon = require('sinon');
 var html = require('./html');
-var bind = require('../');
+var Bind = require('../');
 
 /*globals describe, assert, beforeEach, it */
 describe('transform with bind', function () {
@@ -11,7 +11,7 @@ describe('transform with bind', function () {
   beforeEach(function () {
     html(window.__html__['test/transform.html']);
 
-    data = bind({
+    data = Bind({
       cats: [
       {
         name: 'missy',
@@ -55,7 +55,7 @@ describe('transform with bind', function () {
       return 'sam';
     });
 
-    var data = bind({
+    var data = Bind({
       name: 'nap',
     }, {
       name: {
@@ -85,19 +85,30 @@ describe('transform with bind', function () {
     }, 10);
   });
 
-  // it('should support text fields', function (done) {
-  //   var node = document.querySelector('input.name');
-  //   assert.ok(node.value === data.name, 'found ' + data.name);
+  it('should support text fields', function (done) {
+    var data = Bind({
+      name: 'julie',
+    }, {
+      name: {
+        dom: '#name',
+        transform: function (value) {
+          return this.safe(value);
+        },
+      },
+    });
 
-  //   node.value = 'remy';
-  //   var event = document.createEvent('HTMLEvents');
-  //   event.initEvent('input', true, true);
-  //   node.dispatchEvent(event);
+    var node = document.querySelector('#name');
+    assert.ok(node.value === data.name, 'found ' + data.name);
 
-  //   setTimeout(function () {
-  //     assert.ok(data.name === 'remy', 'found ' + data.name);
-  //     done();
-  //   }, 10);
+    node.value = 'remy';
+    var event = document.createEvent('HTMLEvents');
+    event.initEvent('input', true, true);
+    node.dispatchEvent(event);
 
-  // });
+    setTimeout(function () {
+      assert.ok(data.name === 'remy', 'found ' + data.name);
+      done();
+    }, 10);
+
+  });
 });

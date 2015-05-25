@@ -80,7 +80,8 @@ describe('arrays', function () {
     });
 
     expected = 2;
-    data.data.shift();
+    var shift = data.data.shift();
+    assert.ok(shift === 1);
     expected = 1;
     data.data.pop();
     done();
@@ -134,6 +135,10 @@ describe('arrays', function () {
     data.cats[0].name = 'Jed';
     assert.ok(callbacks.dizzy.calledTwice);
     assert.ok(data.cats[0].name === 'Jed');
+
+    var shift = data.cats.shift();
+    assert.ok(data.cats[0].name === 'ninja', 'first name is ' + data.cats[0].name);
+    assert.ok(shift.name === 'Jed', 'shifted name is ' + shift.name);
   });
 
   it('should allow the length to be changed', function () {
