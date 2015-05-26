@@ -22,7 +22,7 @@ env:
   # Grant the token repo/public_repo scope (all others can be deselected)
   # You should encrypt this:
   # `travis encrypt GH_TOKEN=<token> --add`
-  global: GH_TOKEN=10d174f93160de33f5627b9c6e48a5ee4de701e7
+  global: GH_TOKEN=QDwCGyLxL6jp3obNuJocfGTwmfJr4jP1qYFlmE/KbZyMHdrUZzwuz3TFSdb02DUOJIAkPpMM93R6gymhW94VdNtwlg5efihX/3M6w8XCjTPamtRsyMjTLV1DC2YKrK0ZrbLGr+F0DaBzb5g1WvDWdc+TEOmAlleMNMiURTAvDxQ=
 deploy:
   provider: npm
   email: remy@remysharp.com
