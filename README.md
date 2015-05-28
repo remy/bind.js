@@ -6,7 +6,7 @@ Two way data binding for HTML and JavaScript (with node.js compatibility) with a
 
 ## Demos
 
-- [Form elements](https://jsbin.com/yoqaku/1/edit?console,output)
+- [Form elements](https://jsbin.com/yoqaku/1/edit?console,output) - comprehensive demo of two-way binding with different form elements
 - [Hangman game](http://rem.jsbin.com/oZOvIJ/9/edit?js,output) - more involved example of data binding
 - [Simple one to one binding](http://rem.jsbin.com/xavej/2/edit?js,output) - time & modulus bound to simple elements
 - [Two way binding](http://rem.jsbin.com/vezeja/5/edit?js,output) - value updates on interval, and DOM updates with it
@@ -20,6 +20,8 @@ setters/gettings, fn.bind, qSA (if using selectors), getOwnPropertyNames.
 Create a `new Bind` based on an object and a mapping. The mapping uses a key/value pair of property path to handler. The handler can be a CSS selector (and thus updates the DOM) or a callback.
 
 There is also an *advanced* value that allows finer grain control over the binding (seen in the `skills` value in the example below).
+
+The node version can be installed using `npm install -S bind.js`.
 
 ## Example
 
@@ -131,3 +133,7 @@ If the original, unbound object is needed, a utility function is available on th
 ```js
 var copy = data.__export();
 ```
+
+## License
+
+MIT / http://rem.mit-license.org

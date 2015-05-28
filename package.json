@@ -15,10 +15,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/remy/bind.git"
+    "url": "git://github.com/remy/bind.js.git"
   },
-  "author": "",
-  "license": "BSD",
+  "author": "Remy Sharp",
+  "license": "MIT",
+  "keywords": ["data-binding", "binding", "engine", "bind"],
   "readmeFilename": "README.md",
   "gitHead": "59b398e1007d41a41d8fb73a659b9fc4ba4fa20a",
   "devDependencies": {
