@@ -16,7 +16,8 @@ after_script:
 before_deploy:
 - npm config set spin false --global
 env:
-  global: GH_TOKEN=QDwCGyLxL6jp3obNuJocfGTwmfJr4jP1qYFlmE/KbZyMHdrUZzwuz3TFSdb02DUOJIAkPpMM93R6gymhW94VdNtwlg5efihX/3M6w8XCjTPamtRsyMjTLV1DC2YKrK0ZrbLGr+F0DaBzb5g1WvDWdc+TEOmAlleMNMiURTAvDxQ=
+  global:
+  - secure: naXZ4f8d0lOhDwLdYkWoVeowL/cop5KuZU16jbYm5dTPwS60zkBvE2A1w8Kav58aIxXpZGO/XM4AMAcGI/M56OtTMAlBmSf865javzxFLVy07oHC0Wgpheip9QEkq+qz03TyXyXLI9MoFfYW+kNT0XU9pUlGF2PlD2On0kUUPs8=
 deploy:
   provider: npm
   email: remy@remysharp.com
