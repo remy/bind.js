@@ -2,7 +2,7 @@
 
 Two way data binding for HTML and JavaScript (with node.js compatibility) with additional support for transforming data before it arrives in the DOM.
 
-[![Test status](https://api.travis-ci.org/remy/bind.png?branch=master)](https://travis-ci.org/remy/bind) [![Coverage Status](https://coveralls.io/repos/remy/bind/badge.svg)](https://coveralls.io/r/remy/bind)
+[![Test status](https://api.travis-ci.org/remy/bind.js.png?branch=master)](https://travis-ci.org/remy/bind.js) [![Coverage Status](https://coveralls.io/repos/remy/bind.js/badge.svg)](https://coveralls.io/r/remy/bind.js)
 
 ## Demos
 
@@ -122,7 +122,7 @@ data.me = {
 
 ### Events at the root object
 
-This isn't currently supported, but could be implemented with a [special mapping](https://github.com/remy/bind/issues/7) - I'm open to suggestions here.
+This isn't currently supported, but could be implemented with a [special mapping](https://github.com/remy/bind.js/issues/7) - I'm open to suggestions here.
 
 Otherwise, the object can be nested and callbacks be bound to the first depth property (as seen in the [forms example](http://jsbin.com/yoqaku/1/edit?js,output))
 
