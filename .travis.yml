@@ -26,4 +26,4 @@ deploy:
     secure: SidhlEg+iItVCFr5KMmhnzHMFQW/ZQCh41pJp1J+OEFSracZ6JXlLfsgoMIA4SZZB7zp9ugw0BwcybRuJmWF1oSEOFH2AbXHwltVq3ft0BuX/NdNp8SdQ1dhnLe+QDe7hlTdKfWnS5pMLuP4Ko/23AfADdc669eHuZ/gU4l08PM=
   on:
     branch: master
-    repo: remy/bind
+    repo: remy/bind.js
