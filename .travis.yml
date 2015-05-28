@@ -1,38 +1,28 @@
 language: node_js
 node_js:
-- iojs-v1
-- "0.10"
+- '0.12'
 sudo: false
 cache:
   directories:
   - node_modules
 notifications:
   email: false
-  # See https://github.com/boennemann/semantic-release/issues/18
 before_script:
-  - npm install
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+- npm install
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
 after_script:
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+- cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
 before_deploy:
-  - npm config set spin false --global
+- npm config set spin false --global
 env:
-  # Get your token here: https://github.com/settings/tokens/new
-  # Grant the token repo/public_repo scope (all others can be deselected)
-  # You should encrypt this:
-  # `travis encrypt GH_TOKEN=<token> --add`
   global: GH_TOKEN=QDwCGyLxL6jp3obNuJocfGTwmfJr4jP1qYFlmE/KbZyMHdrUZzwuz3TFSdb02DUOJIAkPpMM93R6gymhW94VdNtwlg5efihX/3M6w8XCjTPamtRsyMjTLV1DC2YKrK0ZrbLGr+F0DaBzb5g1WvDWdc+TEOmAlleMNMiURTAvDxQ=
 deploy:
   provider: npm
   email: remy@remysharp.com
-  # Very important. Don't forget this one.
   skip_cleanup: true
-  # Travis currently only supports the old auth key format.
-  # Do `echo -n "<username>:<password>" | base64` to get it.
-  # You should encrypt this:
-  # `travis encrypt $(echo -n "<username>:<password>" | base64) --add deploy.api_key`
-  api_key: brtoN4yxagx/CSP5qn5+Bb+N6zd86lvUaWUnLpekeVH0/rsTLbdORSb8dLdOMXexIzx3kXeWwmoxOM3PHOC+5mcOPi2+70UcC5bl+48OL1XIEUlMsceGHSqNAq74WjXUPaSdS2BF1FlNCMHR1dNQmO8uUNrtwuYqlxE6AoNrCtM=
+  api_key:
+    secure: SidhlEg+iItVCFr5KMmhnzHMFQW/ZQCh41pJp1J+OEFSracZ6JXlLfsgoMIA4SZZB7zp9ugw0BwcybRuJmWF1oSEOFH2AbXHwltVq3ft0BuX/NdNp8SdQ1dhnLe+QDe7hlTdKfWnS5pMLuP4Ko/23AfADdc669eHuZ/gU4l08PM=
   on:
     branch: master
     repo: remy/bind
