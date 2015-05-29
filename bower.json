@@ -1,0 +1,25 @@
+{
+  "name": "bind.js",
+  "version": "0.4.0",
+  "homepage": "https://github.com/remy/bind.js",
+  "authors": [
+    "Remy Sharp <remy@remysharp.com>"
+  ],
+  "description": "Simple two way data binding to HTML and callbacks",
+  "main": "dist/bind.min.js",
+  "keywords": [
+    "bind",
+    "data",
+    "binding",
+    "callbacks",
+    "databinding"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
