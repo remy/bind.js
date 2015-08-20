@@ -54,7 +54,7 @@ var player = Bind({
 
 $('form').onsubmit = function (event) {
   event.preventDefault();
-  data.skills.push($('#newSkill').value);
+  player.skills.push($('#newSkill').value);
   this.reset();
 }
 ```
