@@ -1,5 +1,6 @@
 {
   "name": "bind.js",
+  "version": "1.0.0",
   "description": "Simple data binding for callbacks & HTML (also node.js compatible).",
   "main": "lib/bind.js",
   "directories": {
@@ -24,7 +25,6 @@
     "bind"
   ],
   "readmeFilename": "README.md",
-  "gitHead": "59b398e1007d41a41d8fb73a659b9fc4ba4fa20a",
   "devDependencies": {
     "browserify": "^10.0.0",
     "browserify-istanbul": "^0.2.1",
