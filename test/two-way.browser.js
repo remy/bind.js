@@ -46,6 +46,11 @@ describe('two way data bind', function () {
     assert.ok(found === 3, 'found ' + found);
   });
 
+  it('should update textarea elements', function () {
+    var ta = document.querySelector('textarea');
+    assert.equal(ta.value, data.body, 'textarea was updated');
+  });
+
   it('should update data based on element changes', function (done) {
     var node = document.querySelector('input.score');
     node.value = 10;
