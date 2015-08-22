@@ -1,6 +1,5 @@
 {
   "name": "bind.js",
-  "version": "0.0.0-semantically-released",
   "description": "Simple data binding for callbacks & HTML (also node.js compatible).",
   "main": "lib/bind.js",
   "directories": {
@@ -10,16 +9,20 @@
     "test": "karma start",
     "build": "uglifyjs --mangle --compress -- lib/bind.js > dist/bind.min.js",
     "test-node": "mocha test/*.test.js test/**/*.test.js",
-    "prepublish": "semantic-release pre",
-    "postpublish": "semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/remy/bind.js.git"
+    "url": "http://github.com/remy/bind.js.git"
   },
   "author": "Remy Sharp",
   "license": "MIT",
-  "keywords": ["data-binding", "binding", "engine", "bind"],
+  "keywords": [
+    "data-binding",
+    "binding",
+    "engine",
+    "bind"
+  ],
   "readmeFilename": "README.md",
   "gitHead": "59b398e1007d41a41d8fb73a659b9fc4ba4fa20a",
   "devDependencies": {
@@ -41,8 +44,8 @@
     "karma-mocha-reporter": "^1.0.2",
     "karma-sinon": "^1.0.4",
     "mocha": "^2.2.4",
-    "semantic-release": "^3.3.1",
     "sinon": "^1.14.1",
-    "uglify-js": "^2.4.20"
+    "uglify-js": "^2.4.20",
+    "semantic-release": "^4.1.1"
   }
 }

@@ -1,29 +1,19 @@
-language: node_js
-node_js:
-- '0.12'
 sudo: false
+language: node_js
 cache:
   directories:
-  - node_modules
+    - node_modules
 notifications:
   email: false
+node_js:
+  - iojs
+before_install:
+  - npm i -g npm@^2.0.0
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
 before_script:
-- npm install
-- export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
+  - npm prune
 after_script:
-- cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
-before_deploy:
-- npm config set spin false --global
-env:
-  global:
-  - secure: naXZ4f8d0lOhDwLdYkWoVeowL/cop5KuZU16jbYm5dTPwS60zkBvE2A1w8Kav58aIxXpZGO/XM4AMAcGI/M56OtTMAlBmSf865javzxFLVy07oHC0Wgpheip9QEkq+qz03TyXyXLI9MoFfYW+kNT0XU9pUlGF2PlD2On0kUUPs8=
-deploy:
-  provider: npm
-  email: remy@remysharp.com
-  skip_cleanup: true
-  api_key:
-    secure: SidhlEg+iItVCFr5KMmhnzHMFQW/ZQCh41pJp1J+OEFSracZ6JXlLfsgoMIA4SZZB7zp9ugw0BwcybRuJmWF1oSEOFH2AbXHwltVq3ft0BuX/NdNp8SdQ1dhnLe+QDe7hlTdKfWnS5pMLuP4Ko/23AfADdc669eHuZ/gU4l08PM=
-  on:
-    branch: master
-    repo: remy/bind.js
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+after_success:
+  - npm run semantic-release
