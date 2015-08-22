@@ -14,15 +14,17 @@ describe('two way data bind', function () {
     data = Bind({
       score: 10,
       name: 'Julie',
+      body: 'Some really long\nstatement about stuff',
     }, {
       score: '.score',
       name: '.name',
+      body: 'textarea.body',
     });
   });
 
   it('should find selectors', function () {
-    var target = data.score = 10;
     var nodes = document.querySelectorAll('.score');
+    assert.equal(nodes.length, 3, 'found DOM nodes: ' + nodes.length);
   });
 
   it('should update DOM to data values', function () {

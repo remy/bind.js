@@ -3,10 +3,8 @@ var sinon = require('sinon');
 var assert = require('assert');
 var Bind = require('../');
 
-/*globals describe, assert, beforeEach, Bind, sinon, it */
+/* globals describe, assert, Bind, sinon, it */
 describe('export', function () {
-  var data;
-
   it('returns vanilla object', function () {
     var spy = sinon.spy();
     var o = {
@@ -16,7 +14,7 @@ describe('export', function () {
         location: 'house',
       },
     };
-    var data = Bind(o, {
+    var data = new Bind(o, {
       name: spy,
     });
 
