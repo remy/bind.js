@@ -2,7 +2,7 @@
 
 Two way data binding for HTML and JavaScript (with node.js compatibility) with additional support for transforming data before it arrives in the DOM.
 
-[![Test status](https://api.travis-ci.org/remy/bind.js.png?branch=master)](https://travis-ci.org/remy/bind.js) [![Coverage Status](https://coveralls.io/repos/remy/bind.js/badge.svg)](https://coveralls.io/r/remy/bind.js)
+[![Test status](https://api.travis-ci.org/remy/bind.js.svg?branch=master)](https://travis-ci.org/remy/bind.js) [![Coverage Status](https://coveralls.io/repos/remy/bind.js/badge.svg)](https://coveralls.io/r/remy/bind.js)
 
 ## Demos
 
