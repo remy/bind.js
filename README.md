@@ -131,10 +131,7 @@ var data = Bind({
       return parseFloat(v.replace(/^£/, ''), 10);
     },
     transform: function (v) {
-      transform: function (v) {
-      var pound = v | 0; // drop the dp
-      var pennies = ((v % 1 * 100) + '0').slice(0, 2);
-      return '£' + pound + '.' + pennies;
+      return '£' + v.toFixed(2);
     }
 });
 ```
