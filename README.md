@@ -101,6 +101,46 @@ var data = Bind({
 data.cats.unshift('sam');
 ```
 
+## Using the DOM to inform values
+
+If you want the DOM to drive the initial values of the bind object, then you'll need to set the JavaScript property value to `null` and it will read the value from the DOM at startup:
+
+```js
+var data = Bind({
+  price: null
+}, {
+  price: '.price',
+});
+```
+
+Now in the HTML:
+
+```html
+<p class="price">£10.50</p>
+```
+
+Now `data.price` has the value of `£10.50`. If you wanted this to be a float instead, you would use the `parse` and `transform` methods:
+
+```js
+var data = Bind({
+  price: null
+}, {
+  price: {
+    dom: '.price',
+    parse: function (v) {
+      return parseFloat(v.replace(/^£/, ''), 10);
+    },
+    transform: function (v) {
+      transform: function (v) {
+      var pound = v | 0; // drop the dp
+      var pennies = ((v % 1 * 100) + '0').slice(0, 2);
+      return '£' + pound + '.' + pennies;
+    }
+});
+```
+
+Now `data.price` is `10.5`, and when the value is changed to `data.price = 11.5`, the DOM is updated to `£11.50`.
+
 ## Restrictions
 
 ### Deleting primitive property
