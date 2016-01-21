@@ -42,16 +42,18 @@ var player = Bind({
   score: '#score',
   name: '#name',
   'location.city': function (city) {
-    alert(data.me.name + "'s city is " + city);
+    // city === this.location.city
+    alert(this.name + "'s city is " + city);
   },
   skills: {
     dom: '#skills',
     transform: function (value) {
       return '<li>' + this.safe(value) + '</li>';
-    },
+    }
   }
 });
 
+var $ = document.querySelector.bind(document);
 $('form').onsubmit = function (event) {
   event.preventDefault();
   player.skills.push($('#newSkill').value);
@@ -80,7 +82,7 @@ Note that the `transform` function is applied to array elements when mapped to a
 
 ## Arrays
 
-Individual array elements cab be also mapped using the dot notation and the index in the array.
+Individual array elements can also be mapped using the dot notation and the index in the array.
 
 In the example below, when the first cat name in the array changes, it will update the DOM.
 
