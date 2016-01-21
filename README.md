@@ -53,9 +53,10 @@ var player = Bind({
   }
 });
 
-document.getElementsByTagName('form')[0].onsubmit = function (event) {
+var $ = document.querySelector.bind(document);
+$('form').onsubmit = function (event) {
   event.preventDefault();
-  player.skills.push(this.children.namedItem('newSkill').value);
+  player.skills.push($('#newSkill').value);
   this.reset();
 }
 ```
