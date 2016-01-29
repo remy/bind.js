@@ -23,7 +23,7 @@ There is also an *advanced* value that allows finer grain control over the bindi
 
 The node version can be installed using `npm install -S bind.js`.
 
-## Example
+## Example [(JS Bin)](http://jsbin.com/fupipe/edit?html,js,output)
 
 ```js
 var player = Bind({
@@ -42,7 +42,7 @@ var player = Bind({
   score: '#score',
   name: '#name',
   'location.city': function (city) {
-    alert(data.me.name + "'s city is " + city);
+    alert(this.name + "'s city is " + city);
   },
   skills: {
     dom: '#skills',
@@ -52,11 +52,11 @@ var player = Bind({
   }
 });
 
-$('form').onsubmit = function (event) {
+document.querySelector('form').onsubmit = function (event) {
   event.preventDefault();
-  player.skills.push($('#newSkill').value);
+  player.skills.push(document.querySelector('#newSkill').value);
   this.reset();
-}
+};
 ```
 
 Notice that in the second argument to `Bind` the mapping key is a *path* to the object property separated by a `.` period: `'location.city': function`.
