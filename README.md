@@ -84,7 +84,7 @@ Individual array elements cab be also mapped using the dot notation and the inde
 
 In the example below, when the first cat name in the array changes, it will update the DOM.
 
-```
+```js
 var data = Bind({
   cats: ['ninja', 'missy', 'dizzy']
 }, {
@@ -144,7 +144,7 @@ Now `data.price` is `10.5`, and when the value is changed to `data.price = 11.5`
 
 There's no handling deleted primitive properties. Once it is deleted, if it's added back in again, it can't be tracked:
 
-```
+```js
 data.me.score++; // updates element#score
 delete data.me.score;
 data.me.score = 1; // does nothing
