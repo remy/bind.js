@@ -14,18 +14,11 @@ describe('select', function () {
     spy = sinon.spy();
 
     data = new Bind({
-      cats: ['one', 'two', 'three'],
+      cats: null,
     }, {
-      'me.cats': {
+      cats: {
         dom: '#select',
-        transform: function (cat) {
-          console.log('cat', cat.map(_ => `<option>${_}</option>`).join(','));
-          spy(cat);
-          return cat.map(_ => `<option>${_}</option>`).join(',');
-          // return cat.map(function (_) {
-          //   return '<option>' + _.name + '</option>';
-          // });
-        }
+				callback: spy
       },
     });
   });
@@ -47,7 +40,7 @@ describe('select', function () {
     node.dispatchEvent(event);
 
     setTimeout(function () {
-      assert.equal(data.ts, 'three', 'ts: ' + data.ts);
+      assert.equal(data.cats, 'three', 'cats: ' + data.cats);
       done();
     }, 10);
 
