@@ -80,7 +80,7 @@ Note that the `transform` function is applied to array elements when mapped to a
 
 ## Arrays
 
-Individual array elements cab be also mapped using the dot notation and the index in the array.
+Individual array elements can be also mapped using the dot notation and the index in the array.
 
 In the example below, when the first cat name in the array changes, it will update the DOM.
 
