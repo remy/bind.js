@@ -6,8 +6,12 @@ jobs:
     # let's make sure our tests pass on Chrome browser
     name: E2E on Chrome
     steps:
-      - uses: actions/checkout@v1
-      - run: npm start
-      - uses: cypress-io/github-action@v2
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Install
+        run: npm ci
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
         with:
+          start: npm start
           browser: chrome
