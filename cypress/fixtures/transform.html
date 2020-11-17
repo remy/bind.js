@@ -1,0 +1,27 @@
+<ul id="cats"></ul>
+<input type="text" id="name">
+<input type="text" id="location">
+<script src="./bind.js"></script>
+<script>
+  data = Bind({
+    cats: [
+      {
+        name: 'missy',
+        type: 'black long haired',
+      }, {
+        name: 'dizzy',
+        type: 'tabby',
+      }, {
+        name: 'ninja',
+        type: 'black and white',
+      },
+    ],
+  }, {
+    cats: {
+      dom: '#cats',
+      transform: function (value) {
+        return '<li><strong>' + value.name + '</strong>: <em>' + value.type + '</em></li>';
+      },
+    },
+  });
+</script>

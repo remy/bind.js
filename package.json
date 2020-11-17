@@ -6,7 +6,9 @@
     "test": "tests"
   },
   "scripts": {
+    "cypress:open": "cypress open",
     "test": "karma start",
+    "start": "serve cypress/fixtures -S",
     "build": "uglifyjs --mangle --compress -- lib/bind.js > dist/bind.min.js",
     "test-node": "mocha test/*.test.js test/**/*.test.js",
     "semantic-release": "semantic-release pre && npm run build && npm publish && semantic-release post"
@@ -25,26 +27,11 @@
   ],
   "readmeFilename": "README.md",
   "devDependencies": {
-    "browserify": "^10.0.0",
-    "browserify-istanbul": "^0.2.1",
-    "browserify-shim": "^3.8.6",
-    "chai": "^2.3.0",
-    "coveralls": "^2.11.2",
-    "karma": "^0.12.31",
-    "karma-browserify": "^4.1.2",
-    "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "^0.1.8",
-    "karma-cli": "0.0.4",
-    "karma-commonjs": "0.0.13",
-    "karma-coverage": "^0.2.6",
-    "karma-firefox-launcher": "^0.1.4",
-    "karma-html2js-preprocessor": "^0.1.0",
-    "karma-mocha": "^0.1.10",
-    "karma-mocha-reporter": "^1.0.2",
-    "karma-sinon": "^1.0.4",
-    "mocha": "^2.2.4",
-    "sinon": "^1.14.1",
-    "uglify-js": "^2.4.20",
-    "semantic-release": "^4.1.1"
+    "coveralls": "*",
+    "cypress": "^5.6.0",
+    "eslint-plugin-cypress": "^2.11.2",
+    "semantic-release": "^4.1.1",
+    "serve": "^11.3.2",
+    "uglify-js": "^2.4.20"
   }
 }

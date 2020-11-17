@@ -1,0 +1,19 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "cypress/globals": true
+  },
+  "globals": {
+    "process": true
+  },
+  "extends": ["eslint:recommended"],
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "sourceType": "module"
+  },
+  "plugins": ["cypress"],
+  "rules": {
+    "no-console": 0
+  }
+}

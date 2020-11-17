@@ -1,0 +1,15 @@
+<input name="ts" type="radio" value="one">
+<input name="ts" type="radio" value="two">
+<input name="ts" type="radio" value="three">
+<script src="./bind.js"></script>
+<script>
+  data = Bind({
+    ts: 'one',
+  }, {
+    ts: {
+      dom: 'input[type=radio]',
+      callback: function (arg) {
+        spy(arg);
+      },
+    },
+  });</script>

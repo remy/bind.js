@@ -1,0 +1,23 @@
+<span class="score">10</span>
+<progress class="score" min=0 max=100>
+
+  <p class="price">£100</p>
+  <script src="./bind.js"></script>
+  <script>
+    data = new Bind({
+      score: undefined,
+      price: null,
+    }, {
+      score: '.score',
+      price: {
+        dom: '.price',
+        parse: function (v) {
+          return parseFloat(v.replace(/£/, ''));
+        },
+        transform: function (v) {
+          return '£' + v;
+        },
+      },
+    });
+
+  </script>

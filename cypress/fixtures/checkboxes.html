@@ -1,0 +1,14 @@
+<input name="ts" type="checkbox" value="one">
+<input name="ts" type="checkbox" value="two">
+<input name="ts" type="checkbox" value="three">
+<script src="./bind.js"></script>
+<script>data = Bind(
+    {
+      ts: ['one', 'two'],
+    },
+    {
+      ts: {
+        dom: 'input[type=checkbox]',
+        callback: spy,
+      },
+    });</script>

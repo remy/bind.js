@@ -1,0 +1,24 @@
+<select id="select">
+</select>
+
+<script src="./bind.js"></script>
+<script>
+  data = new Bind(
+    {
+      cats: ['one', 'two', 'three'],
+    },
+    {
+      'me.cats': {
+        dom: '#select',
+        transform: function (cat) {
+          console.log(
+            'cat',
+            cat.map((_) => `<option>${_}</option>`).join(',')
+          );
+          spy(cat);
+          return cat.map((_) => `<option>${_}</option>`).join(',');
+        },
+      },
+    }
+  );
+</script>

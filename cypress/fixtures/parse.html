@@ -1,0 +1,24 @@
+<ul id="cats"></ul>
+<input type="text" id="name">
+<input type="text" id="location">
+<script src="./bind.js"></script>
+<script>
+  data = Bind({
+    name: 'remy',
+    location: 'Brighton',
+  }, {
+    name: {
+      dom: '#name',
+      parse: function (v) {
+        return v.toLowerCase();
+      },
+    },
+    location: {
+      dom: '#location',
+      parse: function (v) {
+        // intentially don't return
+        v.toLowerCase();
+      },
+    }
+  })
+</script>
