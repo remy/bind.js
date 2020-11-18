@@ -1,8 +1,41 @@
-<select id="select">
-</select>
+<!DOCTYPE html>
+<html>
 
+  <head>
+    <meta charset="utf-8">
+    <title>Bind demo</title>
+  </head>
+
+  <body>
+    <p>Location: <select id="location">
+        <option>Brighton</option>
+        <option>Berlin</option>
+        <option selected>New York</option>
+      </select></p>
+    <pre id="output"></pre>
+
+  </body>
+
+</html>
 <script src="./bind.js"></script>
 <script>
+  var data = Bind({
+    me: {
+      location: {
+        city: 'Brighton',
+      },
+    },
+  }, {
+    me: {
+      callback: function () {
+        document.querySelector('#output').innerHTML = escape(JSON.stringify(this.__export(), '', 2));
+      },
+    },
+    'me.location.city': '#location',
+  });
+
+</script>
+<script type="foo">
   data = new Bind(
     {
       cats: ['one', 'two', 'three'],
@@ -11,6 +44,7 @@
       'me.cats': {
         dom: '#select',
         transform: function (cat) {
+          console.log('transforming')
           console.log(
             'cat',
             cat.map((_) => `<option>${_}</option>`).join(',')

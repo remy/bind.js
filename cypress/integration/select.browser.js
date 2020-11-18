@@ -1,35 +1,19 @@
-const sinon = Cypress.sinon;
-
-describe.skip('select', () => {
-  var data;
-  var spy;
-
+describe('select', () => {
   beforeEach(() => {
-    spy = sinon.spy();
-    cy.visit('/select.html', {
-      onBeforeLoad: (win) => {
-        spy = sinon.spy();
-        win.spy = spy;
-      },
-    }).then((win) => cy.wrap({ data: win.data }));
+    cy.visit('/select').then((win) => cy.wrap({ data: win.data }));
   });
 
   it('should update DOM as defined by data', () => {
-    cy.get('select').should('have.length', 1).and('have.value', 'one');
-    assert.ok(spy.called, 'spy called ' + spy.callCount);
+    cy.get('select > option').should('have.length', 3);
   });
 
   it('should update the data when the DOM is changed', () => {
-    var node = document.querySelector('select');
-
-    node.value = 'three';
-    var event = document.createEvent('HTMLEvents');
-    event.initEvent('change', true, true);
-    node.dispatchEvent(event);
-
-    setTimeout(() => {
-      assert.equal(data.ts, 'three', 'ts: ' + data.ts);
-      done();
-    }, 10);
+    cy.get('select')
+      .select('Berlin')
+      .window()
+      .its('data')
+      .then((data) => {
+        assert.equal(data.me.location.city, 'Berlin');
+      });
   });
 });
