@@ -17,27 +17,6 @@
     "type": "git",
     "url": "http://github.com/remy/bind.js.git"
   },
-  "release": {
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      [
-        "@semantic-release/github",
-        {
-          "assets": [
-            {
-              "path": "dist/bind.min.js",
-              "label": "JS distribution"
-            },
-            {
-              "path": ".",
-              "label": "Source code"
-            }
-          ]
-        }
-      ]
-    ]
-  },
   "author": "Remy Sharp",
   "license": "MIT",
   "keywords": [
