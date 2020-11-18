@@ -2,7 +2,7 @@
 
 Two way data binding for HTML and JavaScript (with node.js compatibility) with additional support for transforming data before it arrives in the DOM.
 
-[![npm version](https://badge.fury.io/js/bind.js.svg)](https://badge.fury.io/js/bind.js) [![Coverage Status](https://coveralls.io/repos/remy/bind.js/badge.svg)](https://coveralls.io/r/remy/bind.js)
+[![npm version](https://img.shields.io/npm/v/bind.js)](https://npmjs.com/package/bind.js) ![](https://img.shields.io/github/workflow/status/remy/bind.js/E2E%20on%20Chrome) [![Coverage Status](https://img.shields.io/coveralls/github/remy/bind.js)](https://coveralls.io/r/remy/bind.js)
 
 ## Demos
 
@@ -20,6 +20,8 @@ setters/gettings, fn.bind, qSA (if using selectors), getOwnPropertyNames.
 Create a `new Bind` based on an object and a mapping. The mapping uses a key/value pair of property path to handler. The handler can be a CSS selector (and thus updates the DOM) or a callback.
 
 There is also an *advanced* value that allows finer grain control over the binding (seen in the `skills` value in the example below).
+
+Browser version can be downloaded from [releases](https://github.com/remy/bind.js/releases) or via a CDN like unpkg: `https://unpkg.com/bind.js/dist/bind.min.js`
 
 The node version can be installed using `npm install -S bind.js`.
 

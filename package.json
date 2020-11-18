@@ -9,13 +9,34 @@
     "cypress:open": "cypress open",
     "test": "karma start",
     "start": "serve cypress/fixtures -S",
-    "build": "uglifyjs --mangle --compress -- lib/bind.js > dist/bind.min.js",
+    "build": "mkdir -p dist; uglifyjs --mangle --compress -- lib/bind.js > dist/bind.min.js",
     "test-node": "mocha test/*.test.js test/**/*.test.js",
     "semantic-release": "semantic-release pre && npm run build && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
     "url": "http://github.com/remy/bind.js.git"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            {
+              "path": "dist/bind.min.js",
+              "label": "JS distribution"
+            },
+            {
+              "path": ".",
+              "label": "Source code"
+            }
+          ]
+        }
+      ]
+    ]
   },
   "author": "Remy Sharp",
   "license": "MIT",
