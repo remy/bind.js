@@ -1,0 +1,14 @@
+<input type="checkbox" id="one">
+<input type="checkbox" id="two" value="a">
+<script src="./bind.js"></script>
+<script>
+  data = new Bind(
+    {
+      one: false,
+      two: true,
+    },
+    {
+      one: '#one',
+      two: '#two',
+    });
+</script>
